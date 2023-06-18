@@ -4,6 +4,7 @@ const errorHandler = require('./utils/errrorHandler')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const userRouter = require('./routes/user')
+const shopRouter=require('./routes/shop')
 const cors = require('cors')
 const dotenv = require('dotenv')
 dotenv.config()
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 
 app.use('/api/v2/user', userRouter)
+app.use('/api/v2/shop', shopRouter)
 
 
 const port = process.env.PORT || 8080

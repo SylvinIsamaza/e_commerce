@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const dotenv=require('dotenv')
 dotenv.config()
-const schema=new mongoose.Schema({
+const shopSchema=new mongoose.Schema({
     name:{
         type:String,
         required:true,
@@ -20,18 +20,30 @@ const schema=new mongoose.Schema({
     },
     address:{
         type:String,
+        required:true
+    },
+    
+    role:{
+        type:String,
+        default:"seller"
+    },
+    zipCode:{
+type:Number,
+required:true
+
+
+    },
+    phoneNumber:{
+        type:Number
+    },
+    description:{
+        type:String,
+    
     },
     avatar:{
 type:String
     },
-    role:{
-        type:String,
-        default:"user"
-    }
+
+    
 },{timestamps:true})
-schema.methods.getJwtToken=function (){
-    return jwt.sign({id:this._id},process.env.JWT_TOKEN_SECRET,{
-        expiresIn:process.env.JWT_EXPIRES
-    })
-}
-module.exports=mongoose.model("User",schema)
+module.exports=mongoose.model("shopSchema",shopSchema)

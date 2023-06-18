@@ -1,5 +1,5 @@
 const User=require('../models/user')
-const {createUser, login, getUser}=require('../controller/controllers')
+const {createUser, login, getUser}=require('../controller/user')
 const {upload}=require('../multer')
 const jwt=require('jsonwebtoken')
 const dotenv=require('dotenv')

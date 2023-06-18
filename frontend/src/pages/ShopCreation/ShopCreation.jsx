@@ -1,5 +1,5 @@
 import React from 'react'
-import ShopCreate from '../ShopCreation/ShopCreate.jsx'
+import ShopCreate from '../ShopCreation/ShopCreate'
 function ShopCreation() {
   return (
    <ShopCreate/>
