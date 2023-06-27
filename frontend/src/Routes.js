@@ -1,31 +1,30 @@
-import LoginPage from '../src/pages/Login'
-import SignUpPage from '../src/pages/Signup'
-import ActivationPage from '../src/pages/Activation'
-import Homepage from '../src/pages/Homepage'
-import ProductPage from'../src/pages/ProductPage'
-import BestSellingPage from'../src/pages/BestSellingPage.jsx'
-import EventPage from'../src/pages/EventPage.jsx'
-import FAQPage from'../src/pages/FAQPage.jsx'
-import ProuductDetailsPage from'../src/pages/ProuductDetailsPage.jsx'
-import Profile from '../src/pages/ProfilePage/Profile.jsx'
-import ShopCreationPage from '../src/pages/ShopCreation/ShopCreation.jsx'
-import ShopActivationPage from '../src/pages/ShopActivationPage.jsx'
-import ShopLoginPage from './pages/ShopLoginPage.jsx'
-import ShopHomepage from './pages/ShopHomepage.jsx'
+import LoginPage from "./pages/Login";
+import SignUpPage from "./pages/Signup";
+import ActivationPage from "./pages/Activation";
+import Homepage from "./pages/Homepage";
+import ProductPage from "./pages/ProductPage";
+import BestSellingPage from "./pages/BestSellingPage.jsx";
+import EventPage from "./pages/EventPage.jsx";
+import FAQPage from "./pages/FAQPage.jsx";
+import ProuductDetailsPage from "./pages/ProuductDetailsPage.jsx";
+import Profile from "./pages/ProfilePage/Profile.jsx";
+import ShopCreationPage from "./pages/ShopCreation/ShopCreation.jsx";
+import ShopActivationPage from "./pages/ShopActivationPage.jsx";
+import ShopLoginPage from "./pages/ShopLoginPage.jsx";
+import ShopHomepage from "./pages/ShopHomepage.jsx";
 export {
-
-    LoginPage,
-    SignUpPage,
-    ActivationPage,
-    Homepage,
-    ProductPage,
-    BestSellingPage,
-    EventPage,
-    FAQPage,
-    ProuductDetailsPage,
-    Profile,
-    ShopCreationPage,
-    ShopActivationPage,
-    ShopLoginPage,
-    ShopHomepage
-}
+  LoginPage,
+  SignUpPage,
+  ActivationPage,
+  Homepage,
+  ProductPage,
+  BestSellingPage,
+  EventPage,
+  FAQPage,
+  ProuductDetailsPage,
+  Profile,
+  ShopCreationPage,
+  ShopActivationPage,
+  ShopLoginPage,
+  ShopHomepage,
+};
