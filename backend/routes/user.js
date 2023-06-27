@@ -11,7 +11,7 @@ const errorHandler = require('../utils/errrorHandler')
 const router=express.Router()
 const bcrypt=require('bcrypt')
 const lodash=require('lodash')
-const isAuthenticated = require('../middleware/auth')
+const {isAuthenticated} = require('../middleware/auth')
 
 router.post('/create_user',upload.single("file"),createUser)
 router.get('/home',(req,res)=>{

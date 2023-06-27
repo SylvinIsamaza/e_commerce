@@ -28,25 +28,28 @@ function ShopCreate() {
         const file=e.target.files[0]
         setAvatar(file)
     }
-    const handleSubmit = async (e) => {
-
+    const handleSubmit = (e) => {
         e.preventDefault()
-        store.dispatch(loadUserStart())
-        axios.post(`${server}/api/v2/user/login`, {
-            email,
-            password
-        }, {withCredentials: true}).then(async (data) => {
-            console.log(data.data)
-            await notify('successfully logged in')
-            store.dispatch(loadUserSuccess(data.data))
-
-            navigate('/')
-            // window.location.reload()
-        }).catch(async (err) => {
-            console.log(err)
-            await notify(err.message)
-        })
-    }
+          const config = {
+              headers: {
+                  "Content-Type": 'multipart/form-data'
+              }
+          }
+          const newForm = new FormData()
+          newForm.append("name", name)
+          newForm.append("email", email)
+          newForm.append("file", avatar)
+          newForm.append("password", password)
+          newForm.append("address",address)
+          newForm.append("zipCode",zipCode)
+          newForm.append("phoneNumber",phoneNumber)
+          axios.post(`${server}/api/v2/shop/shop-creation`, newForm, config).then((response) => {
+              notify(response.data.message)
+              navigate('/')
+              
+          })
+          .catch(err =>notify(err))
+      }
 
     return (
         <div className='min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8'>
@@ -207,7 +210,7 @@ function ShopCreate() {
                         } w-ful`
                     }>
                         <h4>Already have account</h4>
-                        <Link to="/shop-signin" className='text-blue-600 pl-2'>
+                        <Link to="/shop-login" className='text-blue-600 pl-2'>
                             Sigin</Link>
                     </div>
                 </form>

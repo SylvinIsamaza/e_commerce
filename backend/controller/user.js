@@ -9,6 +9,7 @@ const catchAsyncError = require('../middleware/catchAsyncError')
 const sendToken =require('../utils/jwtToken')
 const dotenv=require('dotenv')
 dotenv.config()
+const lodash = require('lodash')
 
 async function createUser(req, res, next) {
     const {name, email, password} = req.body
@@ -113,7 +114,8 @@ const  getUser=catchAsyncError(async(req,res,next)=>{
       return res.send({
                 status:200,
                 success:true,
-                user
+                user:lodash.pick(user,['id','name','email','avatar'])
+
             })
         
     } catch (error) {

@@ -120,7 +120,7 @@ function Header({activeHeading, user}) {
                             styles.button
                         } `
                     }>
-                        <Link to='/seller'>
+                        <Link to='/shop-creation'>
                             <h1 className='text-[#fff] items-center flex'>
                                 Become seller
                                 <IoIosArrowForward></IoIosArrowForward>

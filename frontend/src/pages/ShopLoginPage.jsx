@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import ShopCreate from '../ShopCreation/ShopCreate'
+import LoginShop from '../components/loginShop.jsx'
 import { useNavigate } from 'react-router-dom'
-function ShopCreation({isSeller}) {
+function ShopLoginPage({isSeller}) {
   const navigate=useNavigate()
   useEffect(()=>{
     if(isSeller){
@@ -9,8 +9,8 @@ function ShopCreation({isSeller}) {
     }
   },[])
   return (
-   <ShopCreate/>
+    <div><LoginShop/></div>
   )
 }
 
-export default ShopCreation
+export default ShopLoginPage

@@ -1,5 +1,5 @@
 const Shop=require('../models/shop')
-
+const {isSeller}=require('../middleware/auth')
 const {upload}=require('../multer')
 const jwt=require('jsonwebtoken')
 const dotenv=require('dotenv')
@@ -13,20 +13,21 @@ const bcrypt=require('bcrypt')
 const lodash=require('lodash')
 const fs=require('fs')
 const isAuthenticated = require('../middleware/auth')
-const { shopCreation } = require('../controller/shop')
+const { shopCreation, login, getSeller } = require('../controller/shop')
 
 const route=express.Router()
 route.post('/shop-creation',upload.single("file"),shopCreation)
-router.post('/shop/activation',catchAsyncError((req,res,next)=>{
+route.post('/activation',catchAsyncError((req,res,next)=>{
     try {
-    const activationToken=req.body;
-    // console.log(activationToken)
+        console.log(req.body)
+    const {activationToken}=req.body;
+    console.log(activationToken)
    
    
     try {
       const seller= jwt.verify(activationToken,process.env.JWT_TOKEN_SECRET)
       console.log(seller)
-      const savedSeller=new Seller(  lodash.pick(seller,['name','email','password','avatar']))
+      const savedSeller=new Shop(  lodash.pick(seller,['name','email','password','avatar','zipCode','phoneNumber','address']))
       console.log('created')
 savedSeller.save()
 sendToken(savedSeller,201);
@@ -47,4 +48,6 @@ return res.status(200)
         
     }
 }))
+route.post('/login',login)
+route.get('/get_seller',isSeller,getSeller)
 module.exports=route

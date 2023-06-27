@@ -1,6 +1,7 @@
 const jwt=require('jsonwebtoken')
 const dotenv=require('dotenv')
 dotenv.config()
+const Shop=require('../models/shop')
 const User=require('../models/user')
 const sendToken=(user,statusCode,res)=>{
    
@@ -24,4 +25,7 @@ const token=user.getJwtToken()
 // message:"successfully logged in"
 // })
 }
+
+
+
 module.exports=sendToken

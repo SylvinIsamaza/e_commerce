@@ -32,5 +32,6 @@ const userSlice = createSlice({
     }
 })
 
+
 export const{loadUserStart,loadUserFailure,loadUserSuccess}=userSlice.actions
 export default userSlice.reducer

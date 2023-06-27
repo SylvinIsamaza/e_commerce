@@ -68,7 +68,7 @@ function MobileHeader({setOpen,handleSearchChange,searchData,searchTerm,activeHe
                             styles.button
                         } my-5 !rounded !w-[90%] max-w-[140px]`
                     }>
-                        <Link to='/seller'>
+                        <Link to='/shop-creation'>
                             <h1 className='text-[#fff] items-center flex'>
                                 Become seller
                                 <IoIosArrowForward></IoIosArrowForward>
