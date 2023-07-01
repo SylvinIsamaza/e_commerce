@@ -35,3 +35,7 @@ input,select{
   top: -9%;
   cursor: pointer;
 }
+
+::-webkit-scrollbar{
+display: none;
+}

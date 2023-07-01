@@ -25,7 +25,7 @@ function ShopLogin() {
         { withCredentials: true }
       )
       .then(async (data) => {
-        console.log(data.data);
+        //console.log(data.data);
         await notify("successfully logged in");
 
         store.dispatch(loadSellerSuccess(data.data));
@@ -33,7 +33,7 @@ function ShopLogin() {
         navigate("/shop-homepage");
       })
       .catch(async (err) => {
-        console.log(err);
+        //console.log(err);
         await notify(err.message);
       });
   };
