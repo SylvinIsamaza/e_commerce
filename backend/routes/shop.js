@@ -13,7 +13,12 @@ const bcrypt = require("bcrypt");
 const lodash = require("lodash");
 const fs = require("fs");
 const isAuthenticated = require("../middleware/auth");
-const { shopCreation, login, getSeller } = require("../controller/shop");
+const {
+  shopCreation,
+  login,
+  getSeller,
+  logout,
+} = require("../controller/shop");
 
 const route = express.Router();
 route.post("/shop-creation", upload.single("file"), shopCreation);
@@ -55,4 +60,5 @@ route.post(
 );
 route.post("/login", login);
 route.get("/get_seller", isSeller, getSeller);
+route.get("/logout", isSeller, logout);
 module.exports = route;

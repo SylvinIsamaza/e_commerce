@@ -137,7 +137,7 @@ function AllProducts() {
     });
   useEffect(() => {
     seller && store.dispatch(getAllProducts(seller.id));
-  }, [seller, product]);
+  }, [seller]);
   console.log(product);
   return (
     <div className="overflow-y-scroll  w-full py-7 px-4">

@@ -9,11 +9,13 @@ import { HiOutlineReceiptRefund, HiReceiptRefund } from "react-icons/hi";
 import ShopCreateProduct from "../ShopCreateProduct";
 import AllEvents from "../AllEvents.jsx";
 import AllProducts from "./AllProducts";
+import CreateEvent from "./CreateEvent.jsx";
+import DiscountCode from "./DiscountCode.jsx";
 export const dashboardSidebarItem = [
   {
     name: "Dashboard",
     icon: <RxDashboard size={30} />,
-    link: "seller",
+    link: "dashboard",
   },
   {
     name: "All orders",
@@ -43,6 +45,7 @@ export const dashboardSidebarItem = [
     name: "Create events",
     icon: <VscNewFile size={30} />,
     link: "create-event",
+    element: <CreateEvent />,
   },
   {
     name: "withdraw money",
@@ -58,6 +61,7 @@ export const dashboardSidebarItem = [
     name: "Discount Codes",
     icon: <AiOutlineGift size={30} />,
     link: "discount-codes",
+    element: <DiscountCode />,
   },
   {
     name: "Refund",

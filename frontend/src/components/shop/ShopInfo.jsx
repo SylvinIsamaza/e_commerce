@@ -1,10 +1,23 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { backendUrl } from "../../server";
+import { backendUrl, server } from "../../server";
 import styles from "../../styles/styles";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function ShopInfo({ isOwner }) {
   const { seller } = useSelector((state) => state.seller);
+  const handleLogout = async () => {
+    axios
+      .get(`${server}/api/v2/shop/logout`, { withCredentials: true })
+      .then((response) => {
+        toast.success(response.data.message);
+        window.location.reload();
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
   console.log(seller);
   return (
     <div className="w-full py-7 px-2 overflow-y-scroll  h-[100%]">
@@ -46,7 +59,10 @@ function ShopInfo({ isOwner }) {
           <div className={`${styles.button} text-white w-full  !rounded-md`}>
             Edit shop
           </div>
-          <div className={`${styles.button} text-white w-full !rounded-md`}>
+          <div
+            className={`${styles.button} text-white w-full !rounded-md`}
+            onClick={handleLogout}
+          >
             Logout
           </div>
         </div>

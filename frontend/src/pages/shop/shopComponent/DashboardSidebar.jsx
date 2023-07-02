@@ -7,7 +7,11 @@ function DashboardSidebar({ active, changeActive }) {
       <div className="800px:w-[280px]  w-[80px] bg-white h-[89vh] overflow-y-auto z-10 py-7 px-2">
         {dashboardSidebarItem.map((item, index) => (
           <Link
-            to={`/dashboard/${item.link}`}
+            to={
+              item.link !== "dashboard"
+                ? `/dashboard/${item.link}`
+                : "/dashboard"
+            }
             key={index}
             className={`w-full flex items-center p-4 ${
               active === index + 1 ? "text-green-500" : "#555"

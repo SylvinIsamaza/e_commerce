@@ -8,6 +8,8 @@ const shopRouter = require("./routes/shop");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const productRouter = require("./routes/products");
+const eventRouter = require("./routes/events");
+
 dotenv.config();
 const app = express();
 connectToDb();
@@ -25,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api/v2/user", userRouter);
 app.use("/api/v2/shop", shopRouter);
 app.use("/api/v2/product", productRouter);
+app.use("/api/v2/event", eventRouter);
 
 const port = process.env.PORT || 8080;
 const server = app.listen(port, () => {

@@ -6,14 +6,12 @@ import { dashboardSidebarItem } from "./shopComponent/data.js";
 import { useParams } from "react-router-dom";
 function ShopDashboard() {
   const { component } = useParams();
-  // console.log(component);
+  console.log(component);
   const [active, setActive] = useState(1);
   useEffect(() => {
     dashboardSidebarItem.map((item, index) => {
-      if (item.link === component && item.link != "") {
+      if (item.link === component) {
         setActive(dashboardSidebarItem.indexOf(item) + 1);
-      } else {
-        setActive(1);
       }
     });
   }, []);

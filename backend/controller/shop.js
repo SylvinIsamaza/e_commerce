@@ -120,8 +120,24 @@ const getSeller = catchAsyncError(async (req, res, next) => {
     return error;
   }
 });
+const logout = catchAsyncError((req, res, next) => {
+  try {
+    res.cookie("seller_token", null, {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    });
+    res.status(201).json({
+      success: true,
+      message: "Logout successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    return next(new errorHandler(error.message, 500));
+  }
+});
 module.exports = {
   shopCreation,
   login,
   getSeller,
+  logout,
 };

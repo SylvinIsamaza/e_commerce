@@ -91,6 +91,15 @@ function App() {
             </ShopProtectedRoute>
           }
         ></Route>
+
+        <Route
+          path="/dashboard"
+          element={
+            <ShopProtectedRoute>
+              <ShopDashboardPage />
+            </ShopProtectedRoute>
+          }
+        ></Route>
         <Route
           path="/dashboard/:component"
           element={
