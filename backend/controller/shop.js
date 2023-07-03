@@ -43,7 +43,7 @@ async function shopCreation(req, res, next) {
           zipCode,
           phoneNumber,
         });
-        console.log(hashedPassword);
+
         seller.save();
         const activationToken = activateToken(seller);
         const activationUrl = `http://localhost:3000/shop/activation/${activationToken}`;
@@ -53,7 +53,6 @@ async function shopCreation(req, res, next) {
           text: `Hello ${seller.name} click on the following link to activate your shop account: ${activationUrl}`,
         });
         console.log("activation link was sent successfully");
-        console.log(activationUrl);
         return res.status(201).json({
           message: `please check your shop ${seller.email} activation link was sent successfully  `,
         });
@@ -79,21 +78,20 @@ async function login(req, res, next) {
     }
     const shop = await Shop.findOne({ email: email })
       .then(async (shop) => {
-        console.log("email found");
         const isPassCorrect = await bcrypt.compare(password, shop.password);
-        console.log(isPassCorrect);
+
         if (isPassCorrect) {
           sendSellerToken(shop, 200, res);
         }
       })
       .catch((err) => {
         res.send(err);
-        console.log(err);
+
         return next(new errorHandler("incorrect email or password", 500));
       });
   } catch (error) {
     res.send(error);
-    console.log(error);
+
     return next(new errorHandler(error.message, 500));
   }
 }
@@ -131,7 +129,6 @@ const logout = catchAsyncError((req, res, next) => {
       message: "Logout successfully",
     });
   } catch (error) {
-    console.log(error);
     return next(new errorHandler(error.message, 500));
   }
 });

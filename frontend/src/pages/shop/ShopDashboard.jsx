@@ -6,7 +6,7 @@ import { dashboardSidebarItem } from "./shopComponent/data.js";
 import { useParams } from "react-router-dom";
 function ShopDashboard() {
   const { component } = useParams();
-  console.log(component);
+
   const [active, setActive] = useState(1);
   useEffect(() => {
     dashboardSidebarItem.map((item, index) => {
@@ -15,15 +15,14 @@ function ShopDashboard() {
       }
     });
   }, []);
-
-  // console.log(active);
+  console.log(active);
   const changeActive = (num) => {
     setActive(num);
   };
 
   return (
     <div>
-      <DashboardHeader />
+      <DashboardHeader changeActive={changeActive} />
       <div className="flex w-full ">
         <div className=" ">
           <DashboardSidebar active={active} changeActive={changeActive} />

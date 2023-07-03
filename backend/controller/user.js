@@ -19,10 +19,8 @@ async function createUser(req, res, next) {
     const filePath = `uploads/${filename}`;
     await fs.unlink(filePath, (err) => {
       if (err) {
-        console.log(err);
         res.status(500).json({ message: "error while deleting file" });
       } else {
-        console.log({ message: "file deleted successfully" });
       }
     });
     return next(new errorHandler("user with that email already exists", 400));

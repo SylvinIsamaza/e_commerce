@@ -3,7 +3,7 @@ const couponCodeSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "please enter your coupon code name"],
+      // required: [true, "please enter your coupon code name"],
       unique: true,
     },
     minAmount: {
@@ -16,6 +16,10 @@ const couponCodeSchema = new mongoose.Schema(
       type: Object,
       required: [true, "please enter your shop"],
     },
+    selectedProduct: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
+module.exports = mongoose.model("CouponCode", couponCodeSchema);

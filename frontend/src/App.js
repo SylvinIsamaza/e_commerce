@@ -39,6 +39,8 @@ import { ShopCreateProduct, ShopDashboardPage } from "./routes/ShopRoutes";
 import Loader from "./components/layout/Loader";
 import { loadSeller } from "./redux/action/shop";
 import { loadUser } from "./redux/action/user";
+import { getAllCouponCodes } from "./redux/action/couponCode";
+import { getAllProducts } from "./redux/action/product";
 
 function App() {
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
@@ -50,6 +52,7 @@ function App() {
     try {
       store.dispatch(loadUser());
       store.dispatch(loadSeller());
+      store.dispatch(getAllProducts());
     } catch (error) {
       store.dispatch(loadUserFailure());
       //console.log(error.response.data);

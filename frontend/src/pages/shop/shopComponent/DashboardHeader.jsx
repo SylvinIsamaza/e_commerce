@@ -7,7 +7,7 @@ import { BiMessage, BiMessageSquareDetail } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { backendUrl } from "../../../server";
 
-function DashboardHeader() {
+function DashboardHeader({ changeActive }) {
   const { seller } = useSelector((state) => state.seller);
 
   return (
@@ -22,7 +22,12 @@ function DashboardHeader() {
           </Link>
         </div>
         <div className="flex items-center ">
-          <Link to="/coupon-code">
+          <Link
+            to="/dashboard/discount-code"
+            onClick={() => {
+              changeActive(9);
+            }}
+          >
             <div className="flex items-center mr-2">
               <AiOutlineGift
                 color="#555"
@@ -31,7 +36,12 @@ function DashboardHeader() {
               />
             </div>
           </Link>
-          <Link to="/dashboard/events">
+          <Link
+            to="/dashboard/all-events"
+            onClick={() => {
+              changeActive(5);
+            }}
+          >
             <div className="flex items-center mr-2">
               <MdOutlineLocalOffer
                 color="#555"
@@ -40,7 +50,12 @@ function DashboardHeader() {
               />
             </div>
           </Link>
-          <Link to="/dashboard-all-products">
+          <Link
+            to="/dashboard/all-orders"
+            onClick={() => {
+              changeActive(2);
+            }}
+          >
             <div className="flex items-center mr-2">
               <FiShoppingBag
                 color="#555"
@@ -49,7 +64,12 @@ function DashboardHeader() {
               />
             </div>
           </Link>
-          <Link to="/dashboard/orders">
+          <Link
+            to="/dashboard/all-orders"
+            onClick={() => {
+              changeActive(3);
+            }}
+          >
             <div className="flex items-center mr-2">
               <FiPackage
                 color="#555"

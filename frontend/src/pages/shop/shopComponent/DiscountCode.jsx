@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import ProductCard from "../../../components/routes/bestDeals/ProductCard/ProductCard";
-import { productData } from "../../../static/data";
+
 import { useSelector } from "react-redux";
-import axios from "axios";
-import { server } from "../../../server";
-import { deleteProduct, getAllProducts } from "../../../redux/action/product";
+
+import {
+  deleteCouponCode,
+  getAllCouponCodes,
+} from "../../../redux/action/couponCode";
 import { store } from "../../../redux/store";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
@@ -13,27 +14,44 @@ import { DataGrid } from "@mui/x-data-grid";
 import { toast } from "react-toastify";
 import styles from "../../../styles/styles";
 import { RxCross1 } from "react-icons/rx";
+import { getAllProducts } from "../../../redux/action/product";
+import axios from "axios";
+import { server } from "../../../server";
 
 function DiscountCode() {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
-  const [discountPercentage, setdiscountPerce] = useState("");
-  const [minAmount, setMinAmount] = useState("");
-  const [maxAmount, setMaxAmount] = useState("");
+  const [discountPercentage, setDiscountPercentage] = useState("");
+  const [minAmount, setMinAmount] = useState(0);
+  const [maxAmount, setMaxAmount] = useState(0);
+  const [selectedProduct, setSelectedProduct] = useState("");
+
   const { seller } = useSelector((state) => state.seller);
   const { message } = useSelector((state) => state.products);
+  const { couponCode } = useSelector((state) => state.couponCode);
+  console.log(couponCode);
   const handleDelete = (id) => {
-    store.dispatch(deleteProduct(id)).then(() => {
+    store.dispatch(deleteCouponCode(id)).then(() => {
       toast.success(message);
-      seller && store.dispatch(getAllProducts(seller.id));
+      seller && store.dispatch(getAllCouponCodes(seller.id));
     });
   };
   const { product } = useSelector((state) => state.products);
 
-  console.log(product);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submitted");
+    axios
+      .post(`${server}/api/v2/couponCode/create-coupon-code`, {
+        name,
+        maxAmount,
+        minAmount,
+        selectedProduct,
+        shop: seller,
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
   };
   const columns = [
     {
@@ -99,9 +117,10 @@ function DiscountCode() {
       });
     });
   useEffect(() => {
+    seller && store.dispatch(getAllCouponCodes(seller.id));
     seller && store.dispatch(getAllProducts(seller.id));
-  }, [seller]);
-  console.log(product);
+  }, []);
+
   return (
     <>
       <div className="overflow-y-scroll  w-full py-7 px-4">
@@ -130,7 +149,7 @@ function DiscountCode() {
       </div>
       {open ? (
         <div className="w-full bg-[#0000003a] z-[2000] fixed bottom-0 top-0 flex items-center justify-center left-0">
-          <div className="w-[90%] 800px:w-[40%] bg-white shadow-md rounded-md h-[80vh] p-4 ">
+          <div className="w-[90%] 800px:w-[40%] bg-white shadow-md rounded-md h-[80vh] p-4 overflow-y-scroll">
             <div className="w-full flex justify-end">
               <RxCross1
                 size={30}
@@ -144,7 +163,7 @@ function DiscountCode() {
             <h1 className="text-[25px] font-[500] text-center">
               Create coupon code
             </h1>
-            <form action="" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} action="" aria-required={true}>
               <label className="pb-2" htmlFor="name">
                 Name <span className="text-green-500">*</span>
               </label>
@@ -155,6 +174,7 @@ function DiscountCode() {
                 className="w-full border border-gray-300 focus:border-green-500 h-[35px] rounded-md px-2 my-3"
                 placeholder="enter your coupon code name"
                 onChange={(e) => {
+                  console.log(name);
                   setName(e.target.value);
                 }}
               />
@@ -162,13 +182,14 @@ function DiscountCode() {
                 Discount percentage <span className="text-green-500">*</span>
               </label>
               <input
-                type="text"
+                type="number"
                 name="discountPercentage"
+                required
                 value={discountPercentage}
                 className="w-full border border-gray-300 focus:border-green-500 h-[35px] rounded-md px-2 my-3"
                 placeholder="enter your discount percentage"
                 onChange={(e) => {
-                  setdiscountPerce(e.target.value);
+                  setDiscountPercentage(e.target.value);
                 }}
               />
               <label className="pb-2" htmlFor="name">
@@ -178,6 +199,7 @@ function DiscountCode() {
                 type="text"
                 name="minAmount"
                 value={minAmount}
+                required
                 className="w-full border border-gray-300 focus:border-green-500 h-[35px] rounded-md px-2 my-3"
                 placeholder="enter your coupon code min amount"
                 onChange={(e) => {
@@ -188,19 +210,41 @@ function DiscountCode() {
                 Max amount
               </label>
               <input
-                type="text"
+                type="number"
                 name="maxAmount"
-                value={minAmount}
+                value={maxAmount}
+                required
                 className="w-full border border-gray-300 focus:border-green-500 h-[35px] rounded-md px-2 my-3"
                 placeholder="enter your coupon code  max amount"
                 onChange={(e) => {
                   setMaxAmount(e.target.value);
                 }}
               />
+              <label htmlFor=" selectProduct">Selectproduct</label>
+              <br />
+              <select
+                name="selectedProduct"
+                id="selectedProduct"
+                className="w-full h-[35px] rounded-md bg-white border "
+                value={selectedProduct}
+                onChange={(e) => {
+                  setSelectedProduct(e.target.value);
+                }}
+              >
+                <option value=""> Choose product</option>
+                {product &&
+                  product.map((product, index) => (
+                    <option value={product.id} key={index}>
+                      {product.name}
+                    </option>
+                  ))}
+              </select>
+
               <div className="w-full flex items-center justify-center">
                 <button
                   type="submit"
                   className={`${styles.button} !bg-blue-500 !text-white`}
+                  onClick={handleSubmit}
                 >
                   Create coupon
                 </button>

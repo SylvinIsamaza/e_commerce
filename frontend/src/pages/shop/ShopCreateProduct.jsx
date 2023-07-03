@@ -39,8 +39,11 @@ function ShopCreateProduct({ active }) {
     });
     store
       .dispatch(createProduct(newForm))
-      .then(() => toast.success("product created successfully"));
-    window.location.reload();
+      .then(() => toast.success("product created successfully"))
+      .then(() => {
+        window.location.reload();
+        navigate("/dashboard/all-products");
+      });
   };
   const handleImageChange = (e) => {
     e.preventDefault();

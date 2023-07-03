@@ -30,7 +30,7 @@ const createProduct = catchAsyncError(async (req, res, next) => {
 const getProduct = catchAsyncError(async (req, res, next) => {
   try {
     const products = await Product.find({ shopId: req.params.shopId });
-    console.log(products);
+
     res.status(201).json({
       success: true,
       products,
@@ -43,7 +43,7 @@ const deleteProduct = catchAsyncError(async (req, res, next) => {
   try {
     const { id } = req.params;
     const productToBeDeleted = await Product.findById(id);
-    // console.log(productToBeDeleted);
+
     productToBeDeleted.images.forEach((image) => {
       const filename = image;
       const path = `uploads/${filename}`;
@@ -52,8 +52,6 @@ const deleteProduct = catchAsyncError(async (req, res, next) => {
       });
     });
 
-    // const filePath = productToBeDeleted.images[0];
-    // console.log(filePath);
     await Product.findByIdAndDelete(id)
       .then(() => {
         res.status(200).json({

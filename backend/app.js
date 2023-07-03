@@ -9,7 +9,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const productRouter = require("./routes/products");
 const eventRouter = require("./routes/events");
-
+const couponCodeRouter = require("./routes/couponCode");
 dotenv.config();
 const app = express();
 connectToDb();
@@ -28,7 +28,7 @@ app.use("/api/v2/user", userRouter);
 app.use("/api/v2/shop", shopRouter);
 app.use("/api/v2/product", productRouter);
 app.use("/api/v2/event", eventRouter);
-
+app.use("/api/v2/couponCode", couponCodeRouter);
 const port = process.env.PORT || 8080;
 const server = app.listen(port, () => {
   console.log(`listening on http://localhost:${port}`);
