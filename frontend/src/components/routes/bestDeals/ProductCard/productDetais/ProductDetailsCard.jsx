@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {RxCross1} from 'react-icons/rx'
 import styles from '../../../../../styles/styles'
 import {AiFillHeart, AiOutlineHeart, AiOutlineMessage, AiOutlineShoppingCart} from 'react-icons/ai'
+import { server } from '../../../../../server'
 
 function ProductDetailsCard({data, open, setOpen}) {
     const [count, setCount] = useState(0)
@@ -29,13 +30,13 @@ function ProductDetailsCard({data, open, setOpen}) {
                             className='absolute top-3 right-3 '/>
                         <div className="block 800px:flex w-full">
                             <div className="w-full 800px:w-[50%]">
-                                <img src={
-                                        data.images[select]
+                                <img src={`${server}/${data.images[0]}`
+                                        
                                     }
                                     alt="image"/>
                                                             <div className="flex">
                             <img src={
-                                    data.shop.avatar
+                                `${server}/${data.shop.avatar}`
                                 }
                                 alt=""
                                 className='w-[50px] h-[50px] rounded-full mr-2'/>
@@ -63,7 +64,7 @@ function ProductDetailsCard({data, open, setOpen}) {
                         }>
                             Send message<span ><AiOutlineMessage size={20} className='ml-1'/></span>
                         </button>
-                        <h5 className='text-[16px] text-red-500 mt-5'>{data.total_sell} sold out</h5>
+                        <h5 className='text-[16px] text-red-500 mt-5'>{data.soldOut} sold out</h5>
 
                             </div>
                             <div className='w-full 800px:w-[50%] pr-[5px] pl-[5px]'>
@@ -71,8 +72,8 @@ function ProductDetailsCard({data, open, setOpen}) {
                                 <p className='py-3'>{data.description}</p>
                                 <div className="flex">
                                     
-                                <h3 className={`${styles.productDiscountPrice} py-2`}>{data.discount_price} $ </h3>
-                                <h4 className={styles.price}>{data.price?data.price:null} $ </h4>
+                                <h3 className={`${styles.productDiscountPrice} py-2`}>{data.discountPrice} $ </h3>
+                                <h4 className={styles.price}>{data.originalPrice?data.originalPrice:null} $ </h4>
                                 </div>
                                 <div className="flex py-5 justify-between w-full ">
                                     <div className='flex'>

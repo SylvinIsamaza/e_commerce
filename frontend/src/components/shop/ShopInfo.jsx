@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { backendUrl, server } from "../../server";
 import styles from "../../styles/styles";
@@ -7,9 +7,8 @@ import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 
 function ShopInfo({ isOwner }) {
-
-  const {id}=useParams();
-  const { seller } = useSelector((state) => state.seller);
+  const {id}=useParams()
+  const { isSeller,seller } = useSelector((state) => state.seller);
   const handleLogout = async () => {
     axios
       .get(`${server}/api/v2/shop/logout`, { withCredentials: true })
@@ -21,6 +20,7 @@ function ShopInfo({ isOwner }) {
         toast.error(err.message);
       });
   };
+
   console.log(seller);
   return (
     <div className="w-full py-7 px-2 overflow-y-scroll  h-[100%]">
@@ -39,11 +39,11 @@ function ShopInfo({ isOwner }) {
       </h3>
       <div className="p-3">
         <h3 className="text-[#000000] font-[600]">Address</h3>
-        <h4 className="text-[#000000b0]">{seller?seller.address:shop.address}</h4>
+        <h4 className="text-[#000000b0]">{seller?.address}</h4>
       </div>
       <div className="p-3">
         <h3 className="text-[#000000] font-[600]">Phone number</h3>
-        <h4 className="text-[#000000b0]">{seller?seller.phoneNumber:shop.phoneNumber}</h4>
+        <h4 className="text-[#000000b0]">{seller?.phoneNumber}</h4>
       </div>
       <div className="p-3">
         <h3 className="text-[#000000] font-[600]">Total products</h3>
@@ -55,7 +55,7 @@ function ShopInfo({ isOwner }) {
       </div>
       <div className="p-3">
         <h3 className="text-[#000000] font-[600]">Joined on </h3>
-        <h4 className="text-[#000000b0]">{seller?seller.createdAt.slice(0, 10):shop.createdAt.slice(0, 10)}</h4>
+        <h4 className="text-[#000000b0]">{seller?.createdAt.slice(0, 10)}</h4>
       </div>
       {isOwner && (
         <div className="flex flex-col w-full items-center justify-center px-1">

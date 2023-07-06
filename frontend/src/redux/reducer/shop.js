@@ -45,5 +45,6 @@ export const {
   loadSellerFailure,
   sellerLogout,
   clearSellerError,
+  loadShopSuccess
 } = shopSlice.actions;
 export default shopSlice.reducer;

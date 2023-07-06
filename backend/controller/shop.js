@@ -132,20 +132,29 @@ const logout = catchAsyncError((req, res, next) => {
     return next(new errorHandler(error.message, 500));
   }
 });
-const getSellerById=catchAsyncError(async(req,res,next)=>{
- try {
-  const seller=await Shop.findById(req.body.id)
-  .then(()=>{
-    return res.status(200).json({
-      success:true,
-      seller:lodash.pick(seller,['id,name,avatar,address,email,zipCode,phoneNumber,createdAt'])
-    })
-    .catch(err=>next(new errorHandler("shop not found",404)))
-  })
- } catch (error) {
-  return next(new errorHandler(error,404))
- }
-})
+  const getSellerById= catchAsyncError(async (req, res, next) => {
+  const seller = await Shop.findById(req.params.id);
+  try {
+    return res.send({
+      status: 200,
+      success: true,
+      seller: lodash.pick(seller, [
+        "id",
+        "name",
+        "email",
+        "address",
+        "zipCode",
+        "phoneNumber",
+        "createdAt",
+        "avatar",
+        "description",
+        "createdAt",
+      ]),
+    });
+  } catch (error) {
+    return error;
+  }
+});
 module.exports = {
   shopCreation,
   login,

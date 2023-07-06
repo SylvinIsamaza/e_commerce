@@ -5,6 +5,7 @@ import {
   loadSellerFailure,
   loadSellerStart,
   loadSellerSuccess,
+  loadShopSuccess,
 } from "../reducer/shop";
 
 export const loadSeller = () => async (dispatch) => {
