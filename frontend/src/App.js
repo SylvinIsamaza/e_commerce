@@ -30,6 +30,7 @@ import { loadSeller } from "./redux/action/shop";
 import { loadUser } from "./redux/action/user";
 
 import { getAllProducts, getProduct } from "./redux/action/product";
+import { getEvents } from "./redux/action/event";
 
 function App() {
   const { user,isAuthenticated } = useSelector((state) => state.user);
@@ -41,6 +42,7 @@ useEffect(() => {
       store.dispatch(loadSeller());
       store.dispatch(getAllProducts());
       store.dispatch(getProduct())
+      store.dispatch(getEvents())
   }, []);
   
   return (
