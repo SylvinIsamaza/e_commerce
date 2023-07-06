@@ -8,11 +8,11 @@ function ProductDetailsCard({data, open, setOpen}) {
     const [select, setSelect] = useState(false)
     const [click, setClick] = useState("")
     function incrementCount(){
-        setCount((prevcount)=>prevcount+1)
+        setCount((prevCount)=>prevCount+1)
     }
     function decrementCount(){
     
-       setCount((prevcount)=>count>0?prevcount-1:count)
+       setCount((prevCount)=>count>0?prevCount-1:count)
     }
     return (
         <div className='bg-[#fff]'>
@@ -30,12 +30,12 @@ function ProductDetailsCard({data, open, setOpen}) {
                         <div className="block 800px:flex w-full">
                             <div className="w-full 800px:w-[50%]">
                                 <img src={
-                                        data.image_Url[select].url
+                                        data.images[select]
                                     }
                                     alt="image"/>
                                                             <div className="flex">
                             <img src={
-                                    data.shop.shop_avatar.url
+                                    data.shop.avatar
                                 }
                                 alt=""
                                 className='w-[50px] h-[50px] rounded-full mr-2'/>
@@ -48,7 +48,7 @@ function ProductDetailsCard({data, open, setOpen}) {
                                 }</h4>
                                 <h5 className='pb-3 text-[15px]'>
                                     ({
-                                    data.rating
+                                    4.5
                                 }) Ratings
                                 </h5>
 

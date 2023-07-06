@@ -23,20 +23,19 @@ import Cart from "../components/cart/Cart.jsx";
 import Wishlist from "../components/wishlist/Wishlist.jsx";
 import MobileHeader from "../components/layout/MobileHeader";
 function Header({ activeHeading, user }) {
-  //console.logconsole.log(user)
-  //console.logconsole.log(server)
+  const {product}=useSelector((state)=>state.products)
+
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState("");
   const [openWishlist, setOpenWishlist] = useState(false);
   const handleSearchChange = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
-    const filteredProduct = productData.filter((product) =>
+    const filteredProduct = product!=null?product.filter((product) =>
       product.name.toLowerCase().includes(term.toLowerCase())
-    );
+    ):'';
     setSearchData(filteredProduct);
-    //console.logconsole.log(searchData)
-    //console.logconsole.log(productData[0].name)
+
   };
 
   const [active, setActive] = useState(false);
@@ -118,7 +117,7 @@ function Header({ activeHeading, user }) {
                       <Link to={`/products/${productName}`}>
                         <div className="flex w-full items-start py-3">
                           <img
-                            src={product.image_Url[0]}
+                            src={product.images[0]}
                             alt=""
                             className="w-[40px] h-[40px] mr-[10px]"
                           />

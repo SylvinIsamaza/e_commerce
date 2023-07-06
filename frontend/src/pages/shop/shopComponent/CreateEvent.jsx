@@ -12,8 +12,8 @@ import { createEvent } from "../../../redux/action/event";
 
 function EventCreate({ active }) {
   const { seller } = useSelector((state) => state.seller);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+ 
   const [name, setName] = useState("");
   const [images, setImages] = useState("");
   const [description, setDescription] = useState("");

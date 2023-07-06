@@ -10,11 +10,12 @@ import { productData } from "../static/data";
 
 function ProuductDetailsPage() {
   const { name } = useParams();
+  const {product}=useSelector((state)=>state.products)
   const { user } = useSelector((state) => state.user);
   const [data, setData] = useState(null);
   const product_name = name.replace(/-/g, " ");
   useEffect(() => {
-    const d = productData.find((item) => item.name === product_name);
+    const d = product&&product.find((item) => item.name === product_name);
 
     setData(d);
   }, [product_name]);

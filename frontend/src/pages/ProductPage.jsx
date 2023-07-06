@@ -3,27 +3,27 @@ import Header from "../components/Header";
 import { productData } from "../static/data";
 import styles from "../styles/styles";
 import ProductCard from "../components/routes/bestDeals/ProductCard/ProductCard";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function ProductPage() {
   const [searchParams] = useSearchParams();
   const categoryData = searchParams.get("category");
-
+const {product}=useSelector((state)=>state.products)
   const [data, setData] = useState([]);
 
   useEffect(() => {
     if (!categoryData) {
       const d =
-        productData && productData.sort((a, b) => a.total_sell - b.total_sell);
+       product&&[...product].sort((a, b) => a.soldOut - b.soldOut);
       //console.log(d);
       setData(d);
     } else {
       const d =
-        productData && productData.filter((i) => i.category === categoryData);
+        product && [...product].filter((i) => i.category === categoryData);
       setData(d);
     }
-  }, []);
+  }, [product,categoryData]);
   const { user } = useSelector((state) => state.user);
   return (
     <div className="w-full">

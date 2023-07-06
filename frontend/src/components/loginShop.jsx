@@ -14,6 +14,7 @@ function ShopLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,8 +30,8 @@ function ShopLogin() {
         await notify("successfully logged in");
 
         store.dispatch(loadSellerSuccess(data.data));
-
-        navigate("/shop-homepage");
+console.log(data.data)
+        navigate(`/shop/${data.data._id}`);
       })
       .catch(async (err) => {
         //console.log(err);

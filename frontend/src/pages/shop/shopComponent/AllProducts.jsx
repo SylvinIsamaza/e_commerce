@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ProductCard from "../../../components/routes/bestDeals/ProductCard/ProductCard";
-import { productData } from "../../../static/data";
+
 import { useSelector } from "react-redux";
-import axios from "axios";
-import { server } from "../../../server";
+
 import { deleteProduct, getAllProducts } from "../../../redux/action/product";
 import { store } from "../../../redux/store";
 import { Link } from "react-router-dom";

@@ -22,3 +22,18 @@ export const loadSeller = () => async (dispatch) => {
     dispatch(loadSellerFailure(error.message));
   }
 };
+export const loadShop=(id)=>async(dispatch)=>{
+  try {
+    dispatch(loadSellerStart());
+    await axios
+      .get(`${server}/api/v2/shop/get_seller/${id}`)
+      .then((response) => {
+        dispatch(loadShopSuccess(response.data.seller));
+      })
+      .catch((error) => {
+        dispatch(loadSellerFailure(error.message));
+      });
+  } catch (error) {
+    dispatch(loadSellerFailure(error.message));
+  }
+}

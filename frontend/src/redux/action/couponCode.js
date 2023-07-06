@@ -6,9 +6,7 @@ import {
   getAllCouponCodeFail,
   getAllCouponCodeRequest,
   getAllCouponCodeSuccess,
-  couponCodeCreateFail,
-  couponCodeCreateRequest,
-  couponCodeCreateSuccess,
+
 } from "../reducer/couponCode";
 import { server } from "../../server";
 

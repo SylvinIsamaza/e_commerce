@@ -21,44 +21,34 @@ import "react-toastify/dist/ReactToastify.css";
 import { store } from "./redux/store";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import axios from "axios";
-import { server } from "./server";
+
+
 import {
   loadUserFailure,
-  loadUserStart,
-  loadUserSuccess,
+
 } from "./redux/reducer/reducer";
 import ProtectedRoutes from "./routes//ProtectedRoute";
-import {
-  loadSellerFailure,
-  loadSellerStart,
-  loadSellerSuccess,
-} from "./redux/reducer/shop";
+
 import ShopProtectedRoute from "./routes/SellerProtectedRoutes";
-import { ShopCreateProduct, ShopDashboardPage } from "./routes/ShopRoutes";
-import Loader from "./components/layout/Loader";
+import {  ShopDashboardPage } from "./routes/ShopRoutes";
+
 import { loadSeller } from "./redux/action/shop";
 import { loadUser } from "./redux/action/user";
-import { getAllCouponCodes } from "./redux/action/couponCode";
-import { getAllProducts } from "./redux/action/product";
+
+import { getAllProducts, getProduct } from "./redux/action/product";
 
 function App() {
-  const { user, loading, isAuthenticated } = useSelector((state) => state.user);
-  const { isSeller, seller } = useSelector((state) => state.seller);
-  //console.log(isAuthenticated);
-
-  useEffect(() => {
-    //console.logconsole.log(user)
-    try {
-      store.dispatch(loadUser());
+  const { user,isAuthenticated } = useSelector((state) => state.user);
+  const { isSeller} = useSelector((state) => state.seller);
+  const {product}=useSelector((state)=>state.products)
+  
+useEffect(() => {
+  store.dispatch(loadUser());
       store.dispatch(loadSeller());
       store.dispatch(getAllProducts());
-    } catch (error) {
-      store.dispatch(loadUserFailure());
-      //console.log(error.response.data);
-    }
+      store.dispatch(getProduct())
   }, []);
-  //console.log(seller);
+  
   return (
     <BrowserRouter>
       <Routes>
@@ -89,9 +79,9 @@ function App() {
         <Route
           path="/shop/:id"
           element={
-            <ShopProtectedRoute>
+            
               <ShopHomepage />
-            </ShopProtectedRoute>
+           
           }
         ></Route>
 

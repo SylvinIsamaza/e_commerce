@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
 
-import { server } from "../../server";
+
 import { deleteEvent, getAllEvents } from "../../redux/action/event";
 import { store } from "../../redux/store";
 import { Link } from "react-router-dom";

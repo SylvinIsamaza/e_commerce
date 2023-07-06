@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import styles from '../../../../styles/styles';
 import { AiFillHeart, AiFillStar, AiOutlineEye, AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai';
 import ProductDetailsCard from './productDetais/ProductDetailsCard'
+import { server } from '../../../../server';
 
 
 function ProductCard({data}) {
@@ -14,8 +15,8 @@ function ProductCard({data}) {
         <div className='bg-white rounded-lg shadow-sm cursor-pointer h-[370px] p-3 relative z-1 '>
             <div className="flex justify-end"></div>
             <Link to={`/products/${product_name}`}>
-                <img src={
-                        data.image_Url[0].url
+                <img src={`${server}/${data.images[0]}`
+                      
                     }
                     alt=""
                     className='w-full object-contain h-[170px]'/>
@@ -40,11 +41,11 @@ function ProductCard({data}) {
             </div>
             <div className="flex py-2 items-center justify-between">
                 <div className="flex">
-                    <h5 className={styles.productDiscountPrice}>{data.price===0 ?'':data.discount_price}$</h5>
-                    <h4 className={styles.price}>{data.price?data.price+'$':''}</h4>
+                    <h5 className={styles.productDiscountPrice}>{data.originalPrice===0 ?'':data.discountPrice}$</h5>
+                    <h4 className={styles.price}>{data.originalPrice?data.originalPrice+'$':''}</h4>
                 </div>
                 <span className='text-[#63d284] text-[16px] font-[400]'>
-                    {data.total_sell} sold
+                    {data.soldOut} sold
                 </span>
             </div>
             {/* side oprtions like add to wishlist */}

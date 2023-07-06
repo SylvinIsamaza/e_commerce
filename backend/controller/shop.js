@@ -132,9 +132,24 @@ const logout = catchAsyncError((req, res, next) => {
     return next(new errorHandler(error.message, 500));
   }
 });
+const getSellerById=catchAsyncError(async(req,res,next)=>{
+ try {
+  const seller=await Shop.findById(req.body.id)
+  .then(()=>{
+    return res.status(200).json({
+      success:true,
+      seller:lodash.pick(seller,['id,name,avatar,address,email,zipCode,phoneNumber,createdAt'])
+    })
+    .catch(err=>next(new errorHandler("shop not found",404)))
+  })
+ } catch (error) {
+  return next(new errorHandler(error,404))
+ }
+})
 module.exports = {
   shopCreation,
   login,
   getSeller,
   logout,
+  getSellerById
 };

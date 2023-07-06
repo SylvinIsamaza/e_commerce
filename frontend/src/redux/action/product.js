@@ -64,3 +64,14 @@ export const deleteProduct = (id) => async (dispatch) => {
       .catch((error) => dispatch(deleteProductFail(error)));
   } catch (error) {}
 };
+export const getProduct=()=>async (dispatch)=>{
+try {
+  dispatch(getAllProductRequest());
+  await axios.get(`${server}/api/v2/product/`).then((response)=>{
+    dispatch(getAllProductSuccess(response.data))
+    console.log(response.data)
+  })
+} catch (error) {
+  dispatch(getAllProductFail(error))
+}
+}

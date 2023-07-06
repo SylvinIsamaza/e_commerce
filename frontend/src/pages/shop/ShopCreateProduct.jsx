@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DashboardHeader from "./shopComponent/DashboardHeader";
+
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { categoriesData } from "../../static/data";
@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 function ShopCreateProduct({ active }) {
   const { seller } = useSelector((state) => state.seller);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
   const [name, setName] = useState("");
   const [images, setImages] = useState("");
   const [description, setDescription] = useState("");

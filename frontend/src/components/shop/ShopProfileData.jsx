@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { productData } from "../../static/data";
 import ProductCard from "../routes/bestDeals/ProductCard/ProductCard";
 import styles from "../../styles/styles";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { store } from "../../redux/store";
+import { getAllProducts } from "../../redux/action/product";
 
 function ShopProfileData() {
+  const {id}=useParams()
+  const {product}=useSelector((state)=>state.products)
+  console.log(product)
+  useEffect(()=>{
+store.dispatch(getAllProducts(id))
+  },[])
   const [active, setActive] = useState(1);
+
   const profileTitle = [
     {
       name: "Shop Products",
@@ -43,11 +53,12 @@ function ShopProfileData() {
           </div>
         </Link>
       </div>
-      <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px]  xl:grid-cols-3 xl:gap-[35px]">
-        {productData.map((item, index) => (
+      {active==1?<div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px]  xl:grid-cols-3 xl:gap-[35px]">
+        {product&&product.map((item, index) => (
           <ProductCard data={item} key={index} isShop={true} />
         ))}
-      </div>
+      </div>:''}
+      
     </div>
   );
 }

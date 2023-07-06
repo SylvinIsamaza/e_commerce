@@ -64,8 +64,15 @@ const deleteProduct = catchAsyncError(async (req, res, next) => {
     return next(new errorHandler(error, 400));
   }
 });
+const getAllProducts=catchAsyncError(async(req,res,next)=>{
+  await Product.find().then((data)=>{
+    console.log('all products are'+data)
+    res.send(data)
+  })
+})
 module.exports = {
   createProduct,
   getProduct,
   deleteProduct,
+  getAllProducts,
 };

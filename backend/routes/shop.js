@@ -18,6 +18,7 @@ const {
   login,
   getSeller,
   logout,
+  getSellerById
 } = require("../controller/shop");
 
 const route = express.Router();
@@ -60,5 +61,6 @@ route.post(
 );
 route.post("/login", login);
 route.get("/get_seller", isSeller, getSeller);
+route.get('/get_seller/:id',getSellerById)
 route.get("/logout", isSeller, logout);
 module.exports = route;

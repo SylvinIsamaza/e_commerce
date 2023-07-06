@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DashboardHeader from "./shopComponent/DashboardHeader.jsx";
 import DashboardSidebar from "./shopComponent/DashboardSidebar.jsx";
-import ShopCreateProduct from "./ShopCreateProduct.jsx";
+
 import { dashboardSidebarItem } from "./shopComponent/data.js";
 import { useParams } from "react-router-dom";
 function ShopDashboard() {

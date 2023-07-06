@@ -8,7 +8,8 @@ import {
   AiOutlineShopping,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { server } from '../../server';
 
 function ProductDetails({ data }) {
   const [count, setCount] = useState(1);
@@ -37,31 +38,23 @@ function ProductDetails({ data }) {
           <div className="block w-full 800px:flex bg-white rounded-lg px-5 py-5 overflow-auto">
             <div className="w-full 800px:w-[50%] overflow-auto">
               <img
-                src={data && data.image_Url[select].url}
+                src={`${server}/${data?.images[select]}`}
                 alt=""
                 className="w-[80%]"
               />
               <div className="flex sm:w-full">
-                <div
-                  className={`${select === 0 ? "border" : ""} border-gray-300`}
-                  onClick={() => setSelect(0)}
+                {data.images.map((image,i)=><div
+                  className={`${select === i ? "border" : ""} border-gray-300`}
+                  onClick={() => setSelect(i)}
                 >
                   <img
-                    src={data?.image_Url[0].url}
+                    src={`${server}/${data?.images[i]}`}
                     alt=""
                     className="max-h-[200px]"
-                  />
-                </div>
-                <div
-                  className={`${select === 1 ? "border" : ""} border-gray-300`}
-                  onClick={() => setSelect(1)}
-                >
-                  <img
-                    src={data?.image_Url[1].url}
-                    alt=""
-                    className="max-h-[200px]"
-                  />
-                </div>
+                  /></div>)}
+                
+                
+    
               </div>
             </div>
             <div className="w-full 800px:w-[50%] ">
@@ -69,7 +62,7 @@ function ProductDetails({ data }) {
               <h1>{data.description}</h1>
               <div className="flex pt-3">
                 <h1 className={`${styles.productDiscountPrice}`}>
-                  {data.discount_price}$
+                  {data.discountPrice}$
                 </h1>
                 {data.price ? (
                   <h1 className={`${styles.price}`}>{data.price}$</h1>
@@ -111,11 +104,13 @@ function ProductDetails({ data }) {
               </div>
               <div className="flex items-center py-4  ">
                 <div>
+                  <Link to={`/shop/${data&&data.shop._id}`} className="w-full">
                   <img
-                    src={data && data.shop.shop_avatar.url}
+                    src={`${server}/${data && data.shop.avatar}`}
                     alt=""
                     className="rounded-full w-[50px] h-[50px]"
                   />
+                  </Link>
                 </div>
                 <div className="ml-2">
                   <h1 className={`${styles.shop_name}`}>
@@ -168,57 +163,8 @@ const ProductDetailsInfo = ({ data }) => {
       {active === 1 ? (
         <>
           <p className="text-[18px] leading-5 whitespace-pre-line py-2 mx-3">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti
-            voluptates sint cupiditate atque quis quidem omnis delectus fugiat
-            accusamus modi qui nostrum nam ducimus eum blanditiis, labore
-            adipisci perspiciatis iure. Lorem ipsum dolor sit amet, consectetur
-            adipisicing elit. Corrupti voluptates sint cupiditate atque quis
-            quidem omnis delectus fugiat accusamus modi qui nostrum nam ducimus
-            eum blanditiis, labore adipisci perspiciatis iure. Lorem ipsum dolor
-            sit amet, consectetur adipisicing elit. Corrupti voluptates sint
-            cupiditate atque quis quidem omnis delectus fugiat accusamus modi
-            qui nostrum nam ducimus eum blanditiis, labore adipisci perspiciatis
-            iure. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Corrupti voluptates sint cupiditate atque quis quidem omnis delectus
-            fugiat accusamus modi qui nostrum nam ducimus eum blanditiis, labore
-            adipisci perspiciatis iure. Lorem ipsum dolor sit amet, consectetur
-            adipisicing elit. Corrupti voluptates sint cupiditate atque quis
-            quidem omnis delectus fugiat accusamus modi qui nostrum nam ducimus
-            eum blanditiis, labore adipisci perspiciatis iure. Lorem ipsum dolor
-            sit amet, consectetur adipisicing elit. Corrupti voluptates sint
-            cupiditate atque quis quidem omnis delectus fugiat accusamus modi
-            qui nostrum nam ducimus eum blanditiis, labore adipisci perspiciatis
-            iure. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Corrupti voluptates sint cupiditate atque quis quidem omnis delectus
-            fugiat accusamus modi qui nostrum nam ducimus eum blanditiis, labore
-            adipisci perspiciatis
-          </p>
-          <p className="text-[18px] leading-5 whitespace-pre-line py-2 mx-3">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti
-            voluptates sint cupiditate atque quis quidem omnis delectus fugiat
-            accusamus modi qui nostrum nam ducimus eum blanditiis, labore
-            adipisci perspiciatis iure. Lorem ipsum dolor sit amet, consectetur
-            adipisicing elit. Corrupti voluptates sint cupiditate atque quis
-            quidem omnis delectus fugiat accusamus modi qui nostrum nam ducimus
-            eum blanditiis, labore adipisci perspiciatis iure. Lorem ipsum dolor
-            sit amet, consectetur adipisicing elit. Corrupti voluptates sint
-            cupiditate atque quis quidem omnis delectus fugiat accusamus modi
-            qui nostrum nam ducimus eum blanditiis, labore adipisci perspiciatis
-            iure. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Corrupti voluptates sint cupiditate atque quis quidem omnis delectus
-            fugiat accusamus modi qui nostrum nam ducimus eum blanditiis, labore
-            adipisci perspiciatis iure. Lorem ipsum dolor sit amet, consectetur
-            adipisicing elit. Corrupti voluptates sint cupiditate atque quis
-            quidem omnis delectus fugiat accusamus modi qui nostrum nam ducimus
-            eum blanditiis, labore adipisci perspiciatis iure. Lorem ipsum dolor
-            sit amet, consectetur adipisicing elit. Corrupti voluptates sint
-            cupiditate atque quis quidem omnis delectus fugiat accusamus modi
-            qui nostrum nam ducimus eum blanditiis, labore adipisci perspiciatis
-            iure. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Corrupti voluptates sint cupiditate atque quis quidem omnis delectus
-            fugiat accusamus modi qui nostrum nam ducimus eum blanditiis, labore
-            adipisci perspiciatis
-          </p>
+            {data&&data.description}
+            </p>
         </>
       ) : (
         ""
@@ -237,7 +183,7 @@ const ProductDetailsInfo = ({ data }) => {
             <div className="flex items-center py-4 w-full 800px:w-[50%] ">
               <div>
                 <img
-                  src={data && data.shop.shop_avatar.url}
+                  src={`${server}/${data && data.shop.avatar}`}
                   alt=""
                   className="rounded-full w-[50px] h-[50px]"
                 />
@@ -259,7 +205,7 @@ const ProductDetailsInfo = ({ data }) => {
           <div className="flex justify-end py-2">
             <div>
               <h1 className="font-[600] py-1">
-                Joined on <span className="font-[500]">17 Jun 20232</span>
+                Joined on <span className="font-[500]">{data&&data.shop.createdAt.slice(0,10)}</span>
               </h1>
               <h1 className="font-[600] py-1">
                 Total products <span className="font-[500]">4534</span>
@@ -267,7 +213,9 @@ const ProductDetailsInfo = ({ data }) => {
               <h1 className="font-[600] py-1">
                 Total reviews <span className="font-[500]">8000</span>
               </h1>
+              <Link to={`/shop/${data.shop._id}`}>
               <div className={`${styles.button} text-white`}>Visit shop</div>
+              </Link>
             </div>
           </div>
         </div>

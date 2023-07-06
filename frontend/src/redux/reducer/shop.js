@@ -5,6 +5,7 @@ const initialState = {
   isSeller: false,
   error: false,
   isLoading: true,
+  
 };
 const shopSlice = createSlice({
   name: "sellerReducer",
@@ -22,6 +23,12 @@ const shopSlice = createSlice({
     loadSellerFailure: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+    },
+    loadShopSuccess: (state, action) => {
+      state.isLoading = false;
+      state.isAuthenticated = false;
+      state.seller = action.payload;
+      state.isSeller =false;
     },
     sellerLogout: (state) => {
       state.seller = null;
