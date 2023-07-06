@@ -67,8 +67,21 @@ const deleteEvent = catchAsyncError(async (req, res, next) => {
     return next(new errorHandler(error, 400));
   }
 });
+const getAllEvent = catchAsyncError(async (req, res, next) => {
+  try {
+    const events = await Event.find();
+    console.log(events);
+    res.status(201).json({
+      success: true,
+      events,
+    });
+  } catch (error) {
+    return next(new errorHandler(error, 400));
+  }
+});
 module.exports = {
   createEvent,
   getEvent,
   deleteEvent,
+  getAllEvent
 };

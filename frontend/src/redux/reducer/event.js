@@ -6,6 +6,7 @@ const initialState = {
   error: null,
   message: null,
 };
+
 const eventReducer = createSlice({
   name: "eventReducer",
   initialState: initialState,

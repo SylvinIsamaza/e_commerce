@@ -113,8 +113,12 @@ function Header({ activeHeading, user }) {
                   {searchData.map((product, index) => {
                     const productData = product.name;
                     const productName = productData.replace(/\s+/g, "-");
+                    
                     return (
-                      <Link to={`/products/${productName}`}>
+                      <Link to={`/products/${productName}`} onClick={()=>{
+                        setSearchTerm('')
+                    setSearchData('')
+                    }}>
                         <div className="flex w-full items-start py-3">
                           <img
                             src={product.images[0]}

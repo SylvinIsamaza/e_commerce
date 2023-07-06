@@ -62,3 +62,18 @@ export const deleteEvent = (id) => async (dispatch) => {
       .catch((error) => dispatch(deleteEventFail(error)));
   } catch (error) {}
 };
+export const getEvents = (id) => async (dispatch) => {
+  try {
+    dispatch(getAllEventRequest());
+    const { data } = await axios.get(`${server}/api/v2/event/`);
+    console.log(data.events);
+
+    if (data) {
+      dispatch(getAllEventSuccess(data.events));
+    } else {
+      dispatch(getAllEventFail("no events found"));
+    }
+  } catch (error) {
+    dispatch(getAllEventFail(error.message));
+  }
+};

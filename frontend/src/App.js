@@ -21,12 +21,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { store } from "./redux/store";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-
-
-import {
-  loadUserFailure,
-
-} from "./redux/reducer/reducer";
 import ProtectedRoutes from "./routes//ProtectedRoute";
 
 import ShopProtectedRoute from "./routes/SellerProtectedRoutes";

@@ -42,7 +42,7 @@ function ProductDetails({ data }) {
                 alt=""
                 className="w-[80%]"
               />
-              <div className="flex sm:w-full">
+              <div className="flex sm:w-full overflow-scroll">
                 {data.images.map((image,i)=><div
                   className={`${select === i ? "border" : ""} border-gray-300`}
                   onClick={() => setSelect(i)}
@@ -50,7 +50,7 @@ function ProductDetails({ data }) {
                   <img
                     src={`${server}/${data?.images[i]}`}
                     alt=""
-                    className="max-h-[200px]"
+                    className="max-h-[200px] min-w-[120px] 800px:min-w-[150px]"
                   /></div>)}
                 
                 
@@ -181,6 +181,7 @@ const ProductDetailsInfo = ({ data }) => {
         <div className="block 800px:flex justify-between  mt-4 800px:mt-0">
           <div className="w-full 800px:w-[50%]">
             <div className="flex items-center py-4 w-full 800px:w-[50%] ">
+              <Link to={`/shop/${data.shop._id}`}>
               <div>
                 <img
                   src={`${server}/${data && data.shop.avatar}`}
@@ -188,12 +189,15 @@ const ProductDetailsInfo = ({ data }) => {
                   className="rounded-full w-[50px] h-[50px]"
                 />
               </div>
+              </Link>
+              <Link to={`/shop/${data.shop._id}`}>
               <div className="ml-2">
                 <h1 className={`${styles.shop_name}`}>
                   {data && data.shop.name}{" "}
                 </h1>
                 <p>({data && data.rating}) Ratings</p>
               </div>
+              </Link>
             </div>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita

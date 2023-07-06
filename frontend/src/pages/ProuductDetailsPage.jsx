@@ -14,12 +14,14 @@ function ProuductDetailsPage() {
   const { user } = useSelector((state) => state.user);
   const [data, setData] = useState(null);
   const product_name = name.replace(/-/g, " ");
+  console.log(product_name)
   useEffect(() => {
     const d = product&&product.find((item) => item.name === product_name);
 
     setData(d);
-  }, [product_name]);
-
+  }, [name,product]);
+  
+console.log(data)
   return (
     <div className="w-full">
       <Header user={user} />
