@@ -4,6 +4,9 @@ import {
   loadUserFailure,
   loadUserStart,
   loadUserSuccess,
+  updateUserFailure,
+  updateUserStart,
+  updateUserSuccess,
 } from "../reducer/reducer";
 
 export const loadUser = () => async (dispatch) => {
@@ -21,3 +24,13 @@ export const loadUser = () => async (dispatch) => {
     dispatch(loadUserFailure(err.message));
   }
 };
+
+export const updateUser=(data)=>async(dispatch)=>{
+  try {
+    dispatch(updateUserStart())
+    const {data}=await axios.put(`${server}/api/v2/user/update_user`,data,{withCredentials:true})
+    dispatch(updateUserSuccess(data.user))
+  } catch (error) {
+   dispatch(updateUserFailure(error.message)) 
+  }
+}
