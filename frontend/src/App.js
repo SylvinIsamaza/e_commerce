@@ -36,7 +36,7 @@ function App() {
   const { user,isAuthenticated } = useSelector((state) => state.user);
   const { isSeller} = useSelector((state) => state.seller);
   const {product}=useSelector((state)=>state.products)
-  
+ 
 useEffect(() => {
   store.dispatch(loadUser());
       store.dispatch(loadSeller());
@@ -44,7 +44,6 @@ useEffect(() => {
       store.dispatch(getProduct())
       store.dispatch(getEvents())
   }, []);
-  
   return (
     <BrowserRouter>
       <Routes>

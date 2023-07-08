@@ -17,16 +17,17 @@ function ProfileComponents() {
   const [password, setPassword] = useState();
   const [avatar,setAvatar]=useState(null)
 const handleAvatarChange=(e)=>{
-    e.preventDefault();
+    const file = e.target.files[0];
+    setAvatar(file)
     const form=new FormData()
-    const file=e.target.files[0];
-    setAvatar(file);
     form.append("id",user&&user.id)
-    form.append("file",avatar)
-    console.log(avatar)
+    form.append("file",file)
+  
     store.dispatch(updateAvatar(form))
-    
+    window.location.reload()
 }
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     store.dispatch(
@@ -58,7 +59,8 @@ const handleAvatarChange=(e)=>{
           >
             <AiOutlineCamera size={20} />
           </label>
-          <input type="file" className="hidden" id="upload" onChange={(e)=>handleAvatarChange(e)} accept=".jpg,.png,.jpeg"/>
+          <input type="file" className="hidden" id="upload" onChange={(e)=>
+            handleAvatarChange(e)} accept=".jpg,.png,.jpeg"/>
         </div>
       </div>
       <form

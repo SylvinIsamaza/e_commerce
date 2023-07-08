@@ -7,16 +7,18 @@ import { CgProfile } from 'react-icons/cg'
 import styles from '../../styles/styles'
 import { backendUrl } from '../../server'
 import { IoIosArrowForward } from 'react-icons/io'
+import { useSelector } from 'react-redux'
 
-function MobileHeader({setOpen,handleSearchChange,searchData,searchTerm,activeHeading,user}) {
+function MobileHeader({setOpen,handleSearchChange,searchData,searchTerm,activeHeading,user,setOpenWishlist}) {
+    const {wishlist}=useSelector((state)=>state.wishlist)
   return (
     <div className='w-full fixed bg-[#0000004a]  z-40 h-screen 800px:hidden'>
 <div className='bg-white h-full w-[60%] max-w-[300px] px-2 flex flex-col justify-start'>
     <div className='flex px-2 items-center justify-between pt-3'>
         <div className='relative  '>
-        <AiOutlineHeart color='black' size={30} className='cursor-pointer '/> 
+        <AiOutlineHeart color='black' size={30} className='cursor-pointer ' onClick={()=>setOpenWishlist(true)}/> 
         <div className='bg-green-700 h-[15px] w-[15px] rounded-full absolute top-0 right-0 text-white flex items-center text-[12px] justify-center '>
-            1
+            {wishlist&&wishlist.length}
         </div>
         </div>
         

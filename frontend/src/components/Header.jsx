@@ -223,11 +223,11 @@ const {wishlist}=useSelector((state)=>state.wishlist)
             {user ? (
               <Link
                 to="/profile"
-                className={`800px:${styles.normalFlex} relative mr-[15px] hidden`}
+                className={`800px:${styles.normalFlex} relative mr-[15px] hidden h-[45px] w-[45px]`}
               >
                 <img
                   src={`${backendUrl}${user && user.avatar}`}
-                  className="w-[45px] h-[45px] rounded-full"
+                  className="w-[45px] h-[45px] rounded-full object-cover"
                 />
               </Link>
             ) : (
@@ -250,6 +250,7 @@ const {wishlist}=useSelector((state)=>state.wishlist)
           searchTerm={searchTerm}
           searchData={searchData}
           activeHeading={activeHeading}
+          setOpenWishlist={setOpenWishlist}
           user={user}
         />
       ) : (

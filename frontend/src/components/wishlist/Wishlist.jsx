@@ -36,8 +36,8 @@ function Cart({setOpen}) {
     
 
     return (
-        <div className='w-full h-screen bg-[#0000004b] top-0 fixed z-10 flex justify-center items-center'>
-            <div className='fixed bg-white right-0 w-[25%] h-screen  shadow-sm '>
+        <div className='w-full h-screen bg-[#0000004b] top-0 fixed z-[40] flex justify-center items-center'>
+            <div className='fixed bg-white right-0 w-[80%] 600px:w-[25%] h-screen  shadow-sm  '>
                 <div className='w-full justify-start flex flex-col h-screen'>
                     <div className='flex justify-end w-full'>
                         <RxCross1 size={25}
