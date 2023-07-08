@@ -11,7 +11,7 @@ function ActivationPage() {
       const activationEmail = () => {
         try {
           const response = axios
-            .post(`${server}/api/v2/user/activation`, activationToken)
+            .post(`${server}/api/v2/user/activation`, {activationToken:activationToken})
             .then(() => {
               setError(false);
               return response.data.message;
