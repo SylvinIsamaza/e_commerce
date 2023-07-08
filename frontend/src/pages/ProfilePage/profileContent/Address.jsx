@@ -2,9 +2,27 @@ import React, { useState } from 'react'
 import styles from '../../../styles/styles'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { RxCross1 } from 'react-icons/rx'
-
+import {City, Country} from 'country-state-city'
 function Address() {
   const [open,setOpen]=useState(false)
+  const [address1,setAddress1]=useState('');
+  const [address2,setAddress2]=useState("")
+  const [country,setCountry]=useState('');
+  const[city,setCity]=useState("");
+  const [addressType,setAddressType]=useState("");
+  const [zipCode,selectZipCode]=useState("")
+  const addressTypeData=[
+    {
+      name:"Default"
+    },
+    {
+      name:"Home"
+    },
+    {
+      name:"Office"
+    },
+
+  ]
   return (
     <>
         <div className='w-full py-3 px-5'>
@@ -53,36 +71,48 @@ function Address() {
     Country
   </label>
   <br />
-  <select name="country" id="country" className='w-[90%] h-[35px] rounded-md bg-transparent border border-gray-200 mx-[5%] my-2'>
-    <option value="">
+  <select name="country" id="country" className='w-[90%] h-[35px] rounded-md bg-transparent border border-gray-200 mx-[5%] my-2 ' value={country} onChange={(e)=>{setCountry(e.target.value)}}>
+    <option value="" className='pb-2'>
       Choose your country
     </option>
+    {Country.getAllCountries().map((item)=>(<option value={item.isoCode} key={item.isoCode} className='pb-2 '>{item.name}
+      </option>))}
   </select>
   <label htmlFor="city" className='mx-[5%]  text-[#000000ab] font-[600]'>
     City
   </label>
   <br />
-  <select name="city" id="city" className='w-[90%] h-[35px] rounded-md bg-transparent border border-gray-200 mx-[5%] my-2'>
+  <select name="city" id="city" className='w-[90%] h-[35px] rounded-md bg-transparent border border-gray-200 mx-[5%] my-2' value={city} onChange={(e)=>setCity(e.target.value)}>
     <option value="">
       Choose your City
     </option>
+    {City.getCitiesOfCountry(country).map((item)=>(<option value={item.isoCode} key={item}>{item.name}</option>))}
   </select>
   <label htmlFor="address1" className='mx-[5%]  text-[#000000ab] font-[600]'>
     Address 1
   </label>
   <br />
-  <input name="address1" id="address1" className='w-[90%] h-[35px] rounded-md bg-transparent border border-gray-200 mx-[5%] my-2'/>
+  <input type='address' name="address1" id="address1" className='w-[90%] h-[35px] rounded-md bg-transparent border border-gray-200 mx-[5%] my-2 px-2' placeholder='Address 1'value={address1} onChange={(e)=>setAddress1(e.target.value)}/>
   <label htmlFor="address2" className='mx-[5%] text-[#000000ab] font-[600]'>
     Address 2
   </label>
   <br />
-  <input name="address2" id="address2" className='w-[90%] h-[35px] rounded-md bg-transparent border border-gray-200 mx-[5%] my-2'/>
-  <label htmlFor="address2" className='mx-[5%] text-[#000000ab] font-[600]'>
+  <input  type='address' name="address2" id="address2" className='w-[90%] h-[35px] rounded-md bg-transparent border border-gray-200 mx-[5%] my-2 px-2 'placeholder='Address 2'value={address2} onChange={(e)=>setAddress2(e.target.value)}/>
+  <label htmlFor="zipCode" className='mx-[5%] text-[#000000ab] font-[600]'>
     zip Code
   </label>
   <br />
-  <input name="address2" id="address2" className='w-[90%] h-[35px] rounded-md bg-transparent border border-gray-200 mx-[5%] my-2'/>
-
+  <input name="zipCode" id="zipCode" className='w-[90%] h-[35px] rounded-md bg-transparent border border-gray-200 mx-[5%] my-2 px-2'placeholder='zip code'value={zipCode} onChange={(e)=>selectZipCode(e.target.value)}/>
+  <label htmlFor="addressType" className='mx-[5%] text-[#000000ab] font-[600]'>
+    Address type
+  </label>
+  <select name="addressType" id="city" className='w-[90%] h-[35px] rounded-md bg-transparent border border-gray-200 mx-[5%] my-2'>
+    <option value="">
+      Choose address type
+    </option>
+    {addressTypeData.map((item)=>(<option value={item.name} key={item.name} className='pb-2 '>{item.name}
+      </option>))}
+  </select>
   
 </div>
 </div>
