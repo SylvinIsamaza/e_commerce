@@ -13,9 +13,8 @@ function ProfileComponents() {
     const [name,setName]=useState(user&&user.name)
     const [email,setEmail]=useState(user&&user.email)
     const[phone,setPhone]=useState("")
-    const [zipCode,setZipCode]=useState("")
-    const [address1,setAddress1]=useState("")
-    const [address2,setAddress2]=useState("")
+    const [password,setPassword]=useState("")
+    
     
   
  const handleSubmit=(e)=>{
@@ -46,8 +45,7 @@ e.preventDefault()
             </div>
             <form action="" className='w-full' aria-required={true} onSubmit={handleSubmit} >
 <Form value1={user&&name} setValue1={user&&setName} value2={user&&email} setValue2={user&&setEmail} label1="Full name" label2="email" type1="text" type2='email'/>
-<Form value1={phone} setValue1={setPhone} value2={zipCode} setValue2={setZipCode} label1="Phone Number" label2="Zip Code" type1="text" type2='email'/>
-<Form value1={address1} setValue1={setAddress1} value2={address2} setValue2={setAddress2} label1="Address 1" label2="Address 2" type1="text" type2='email'/>
+<Form value1={phone} setValue1={setPhone} value2={password} setValue2={setPassword} label1="Phone Number" label2="Password" type1="text" type2='password'/>
 <div className='w-full flex items-center justify-center py-4'>
 <button type='submit' className={`${styles.button} !bg-blue-700 text-white hover:bg-blue-600`}>Update</button>
 </div>

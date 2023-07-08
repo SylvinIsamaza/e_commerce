@@ -9,17 +9,17 @@ import { useSelector } from "react-redux";
 import { productData } from "../static/data";
 
 function ProuductDetailsPage() {
-  const { name } = useParams();
+  const { id } = useParams();
   const {product}=useSelector((state)=>state.products)
   const { user } = useSelector((state) => state.user);
   const [data, setData] = useState(null);
-  const product_name = name.replace(/-/g, " ");
-  console.log(product_name)
+  const product_id = id
+  console.log(product_id)
   useEffect(() => {
-    const d = product&&product.find((item) => item.name === product_name);
+    const d = product&&product.find((item) => item._id === product_id);
 
     setData(d);
-  }, [name,product]);
+  }, [id,product]);
   
 console.log(data)
   return (
@@ -28,7 +28,7 @@ console.log(data)
       {data ? (
         <div>
           {" "}
-          <ProductDetails data={data} />
+          <ProductDetails data={data}/>
           <SuggestedProduct data={data} />
         </div>
       ) : (

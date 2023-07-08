@@ -3,17 +3,53 @@ import {RxCross1} from 'react-icons/rx'
 import styles from '../../../../../styles/styles'
 import {AiFillHeart, AiOutlineHeart, AiOutlineMessage, AiOutlineShoppingCart} from 'react-icons/ai'
 import { server } from '../../../../../server'
+import { addProductToCart } from '../../../../../redux/action/cart'
+import { store } from '../../../../../redux/store'
+import { toast } from 'react-toastify'
+import { useSelector } from 'react-redux'
+import { addProductToWishlist, removeProductToWishlist } from '../../../../../redux/action/wishlist'
 
 function ProductDetailsCard({data, open, setOpen}) {
-    const [count, setCount] = useState(0)
+    const [count, setCount] = useState(1)
     const [select, setSelect] = useState(false)
     const [click, setClick] = useState("")
-    function incrementCount(){
-        setCount((prevCount)=>prevCount+1)
+
+    const {cart}=useSelector((state)=>state.cart)
+    function incrementCount(data){
+        setCount(count+1);
+        const updatedData={...data,Qty:count+1}
+     updateProductAmount(updatedData)
+
+
     }
-    function decrementCount(){
-    
-       setCount((prevCount)=>count>0?prevCount-1:count)
+    const decrementCount=(data)=>{
+  
+        if(count>1){
+         setCount(count-1);
+         const updatedData={...data,Qty:count-1}
+         updateProductAmount(updatedData)
+        }
+      
+        
+       }
+       function updateProductAmount(data){
+       
+     
+         
+           const cartData=data;
+           store.dispatch(addProductToCart(cartData))
+          
+       }
+    const addToCartHandler=(data)=>{
+        const itemsExist=cart.find((i)=>i._id===data._id)
+        if(itemsExist){
+            return toast.error("Items already exist in cart");
+        }
+        else{
+            const cartData={...data,Qty:count}
+            store.dispatch(addProductToCart(cartData)).then(()=>toast.success("Items added to cart successfull")).catch((err)=>toast.error(err))
+        }
+       
     }
     return (
         <div className='bg-[#fff]'>
@@ -77,17 +113,21 @@ function ProductDetailsCard({data, open, setOpen}) {
                                 </div>
                                 <div className="flex py-5 justify-between w-full ">
                                     <div className='flex'>
-                                    <button className='px-4 py-2 bg-gradient-to-r from-teal-400 to-teal-500 flex items-center justify-center text-white rounded-tl-md rounded-bl-md'  onClick={decrementCount}>-</button>
+                                    <button className='px-4 py-2 bg-gradient-to-r from-teal-400 to-teal-500 flex items-center justify-center text-white rounded-tl-md rounded-bl-md'  onClick={()=>{decrementCount(data)}}>-</button>
                                     <span className='text-center font-[500] py-2 px-4 bg-gray-100 text-gray-800'>{count}</span>
-                                    <button className='px-4 py-2 bg-gradient-to-r from-teal-400 to-teal-500 flex items-center justify-center text-white rounded-tr-md rounded-br-md' onClick={incrementCount}>+</button>
+                                    <button className='px-4 py-2 bg-gradient-to-r from-teal-400 to-teal-500 flex items-center justify-center text-white rounded-tr-md rounded-br-md' onClick={()=>{incrementCount(data)}}>+</button>
                                    
                                     </div>
                                     {click?(
-                                        <AiFillHeart size={30}  />
-                                    ):(<AiOutlineHeart size={30} />)}
+                                        <AiFillHeart size={30}               onClick={()=>{setClick(!click);
+                                            store.dispatch(removeProductToWishlist(data))
+                                            }} color='red'/>
+                                    ):(<AiOutlineHeart size={30}               onClick={()=>{setClick(!click);
+                                        store.dispatch(addProductToWishlist(data))
+                                        }} />)}
                                     </div>
                                    
-                                <button className={`${styles.button} text-white`}>Add to cart <AiOutlineShoppingCart size={20} className='ml-2'/></button>
+                                <button className={`${styles.button} text-white`} onClick={()=>addToCartHandler(data)}>Add to cart <AiOutlineShoppingCart size={20} className='ml-2'/></button>
                                  
                             </div>
                         </div>

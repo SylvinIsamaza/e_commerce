@@ -63,7 +63,7 @@ useEffect(() => {
         <Route path="/best-selling" element={<BestSellingPage />}></Route>
         <Route path="/events" element={<EventPage />}></Route>
         <Route path="/faq" element={<FAQPage />}></Route>
-        <Route path="/products/:name" element={<ProuductDetailsPage />}></Route>
+        <Route path="/products/:id" element={<ProuductDetailsPage />}></Route>
         <Route
           path="/shop-creation"
           element={<ShopCreationPage isSeller={isSeller} />}

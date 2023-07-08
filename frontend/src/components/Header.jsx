@@ -24,7 +24,8 @@ import Wishlist from "../components/wishlist/Wishlist.jsx";
 import MobileHeader from "../components/layout/MobileHeader";
 function Header({ activeHeading, user }) {
   const {product}=useSelector((state)=>state.products)
-
+const {cart}=useSelector((state)=>state.cart)
+const {wishlist}=useSelector((state)=>state.wishlist)
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState("");
   const [openWishlist, setOpenWishlist] = useState(false);
@@ -47,7 +48,7 @@ function Header({ activeHeading, user }) {
   const [dropDown, setDropdown] = useState(false);
   const [openCart, setOpenCart] = useState(false);
   const [open, setOpen] = useState(false);
-
+  
   return (
     <>
       {" "}
@@ -74,9 +75,10 @@ function Header({ activeHeading, user }) {
             color="rgba(0,0,0,0.83)"
             className="cursor-pointer"
             size={40}
+            onClick={()=>{setOpenCart(true)}}
           />
           <span className="h-4 w-4 absolute bg-[#3bc177] rounded-full top-1 right-3 text-[12px] text-center p-0 text-[white] leading-relaxed">
-            1
+            {cart?cart.length:0}
           </span>
         </div>
       </div>
@@ -199,8 +201,8 @@ function Header({ activeHeading, user }) {
                   setOpenWishlist(true);
                 }}
               />
-              <span className="h-4 w-4 absolute bg-[#3bc177] rounded-full top-0 right-0 text-[12px] text-center p-0 text-[white] leading-relaxed">
-                0
+              <span className="h-4 w-4 absolute bg-[#3bc177] rounded-full top-1 right-0 text-[12px] text-center p-0 text-[white] leading-relaxed items-center justify-center flex">
+              {wishlist?wishlist.length:0}
               </span>
             </div>
             <div
@@ -214,8 +216,8 @@ function Header({ activeHeading, user }) {
                   setOpenCart(true);
                 }}
               />
-              <span className="h-4 w-4 absolute bg-[#3bc177] rounded-full top-0 right-0 text-[12px] text-center p-0 text-[white] leading-relaxed">
-                1
+              <span className="h-4 w-4 absolute bg-[#3bc177] rounded-full top-1 right-0 text-[12px] text-center p-0 text-[white] leading-relaxed flex items-center justify-center">
+              {cart?cart.length:0}
               </span>
             </div>
             {user ? (
@@ -239,7 +241,7 @@ function Header({ activeHeading, user }) {
           </div>
         </div>
       </div>
-      {openCart ? <Cart setOpen={setOpenCart} /> : ""}
+      {openCart ? <Cart setOpen={setOpenCart} data={cart} /> : ""}
       {openWishlist ? <Wishlist setOpen={setOpenWishlist} /> : ""}
       {open ? (
         <MobileHeader

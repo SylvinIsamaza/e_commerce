@@ -3,30 +3,37 @@ import {RxCross1} from 'react-icons/rx'
 import styles from '../../styles/styles'
 import {IoBagHandleOutline} from 'react-icons/io5'
 import {HiOutlineMinus, HiPlus} from 'react-icons/hi'
-import { AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai'
+import { AiFillHeart, AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai'
 import {BsCartPlus} from 'react-icons/bs'
+import { useSelector } from 'react-redux'
+import { server } from '../../server'
+import { store } from '../../redux/store'
+import { removeProductToWishlist } from '../../redux/action/wishlist'
+import { toast } from 'react-toastify'
 
 function Cart({setOpen}) {
+    const {wishlist}=useSelector((state)=>state.wishlist)
     const [itemsCount,setItemsCount]=useState()
     const [totalAmountInCart,setTotalAmountInCart]=useState(0)
-    const cartData = [
-        {
-            name: "Iphone 14 pro max  ",
-            desription: 'test',
-            price: 999,
-            count:40
-        }, {
-            name: "Iphone 14 pro max",
-            desription: 'test',
-            price: 657,
-            count:45
-        }, {
-            name: "Iphone 14 pro max",
-            desription: 'test',
-            price: 646,
-            count:50
-        }
-    ]
+    // const cartData = [
+    //     {
+    //         name: "Iphone 14 pro max  ",
+    //         desription: 'test',
+    //         price: 999,
+    //         count:40
+    //     }, {
+    //         name: "Iphone 14 pro max",
+    //         desription: 'test',
+    //         price: 657,
+    //         count:45
+    //     }, {
+    //         name: "Iphone 14 pro max",
+    //         desription: 'test',
+    //         price: 646,
+    //         count:50
+    //     }
+    // ]
+    
 
     return (
         <div className='w-full h-screen bg-[#0000004b] top-0 fixed z-10 flex justify-center items-center'>
@@ -41,8 +48,7 @@ function Cart({setOpen}) {
                                 }
                             }/>
                     </div>
-                {/* {item length} */}
-                <div className={
+                    {wishlist.length>0?<><div className={
                     `${
                         styles.normalFlex
                     } p-4`
@@ -50,12 +56,12 @@ function Cart({setOpen}) {
 
                     <AiOutlineHeart size={25}/>
                     <h1 className='px-3 text-xl font-[600]'>
-                        3 items</h1>
+                        {wishlist&&wishlist.length}</h1>
                 </div>
               
                     <div  className='w-full'>
                     {
-                cartData && cartData.map((data, i) =>{
+                wishlist && wishlist.map((data, i) =>{
                     
                 return(  < WishlistCard data = {
                     data
@@ -63,7 +69,11 @@ function Cart({setOpen}) {
               
             })
             } 
-                    </div>
+                    </div></>        
+    :<div className='w-full h-[100%] flex items-center justify-center'>
+       <AiFillHeart color='red' size={20}/> Your wishlist is empty
+        </div>}
+ 
 
                
          </div>
@@ -73,21 +83,31 @@ function Cart({setOpen}) {
     )
 }
 function WishlistCard({data}) {
-    const [value,setValue]=useState(1);
-    const totalPrice=data.price*value;
+  
+    const handleRemoveFromWishlist=(data)=>{
+        try {
+          const wishlistData={...data}
+          store.dispatch(removeProductToWishlist(wishlistData))
+          toast.success("items removed successfully")
+        } catch (error) {
+          toast.error(error)
+        }
+       
+       
+      }
     return (
         <div className='w-full  border border-[#0000001b] py-6 flex items-center gap-[5px] pr-3'>
             <div className='flex flex-col gap-1 px-4 py-4 '>
-           <RxCross1 size={15}/>
+           <RxCross1 size={15} onClick={()=>handleRemoveFromWishlist(data)} className='cursor-pointer'/>
             </div>
-            <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/e777c881-5b62-4250-92a6-362967f54cca/air-force-1-07-womens-shoes-b19lqD.png" className='h-[90%] w-[100px]' />
+            <img src={`${server}/${data.images[0]}`} className='h-[90%] w-[100px]' />
             <div className='h-[100%] flex items-start flex-col w-full'>
                 <h1 >{data.name}</h1>
-                <p className='text-gray-500 text-[12px] '> $ {data.price} *{value}</p>
-                <p className='text-red-600 font-[700]'> US$ {data.price*value} $</p>
+               
+                <p className='text-red-600 font-[700]'> US$ {data.originalPrice} $</p>
             </div>
             <div>
-                <BsCartPlus size={30}/>
+                <BsCartPlus size={30} className='cursor-pointer'/>
             </div>
 
         </div>

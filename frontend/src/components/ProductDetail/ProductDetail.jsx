@@ -5,17 +5,29 @@ import {
   AiFillHeart,
   AiOutlineHeart,
   AiOutlineMessage,
-  AiOutlineShopping,
-  AiOutlineShoppingCart,
+    AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { server } from '../../server';
+import { store } from "../../redux/store";
+import { addProductToCart } from "../../redux/action/cart";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { addProductToWishlist, removeProductToWishlist } from "../../redux/action/wishlist";
 
 function ProductDetails({ data }) {
+  const {wishlist}=useSelector((state)=>state.wishlist)
+    const existToWishlist=wishlist.find((i)=>i._id==data._id);
   const [count, setCount] = useState(1);
-  const [click, setClick] = useState(false);
+
+  const [click, setClick] = useState(existToWishlist!=null?true:false);
+  const {cart}=useSelector((state)=>state.cart)
+
   const navigate = useNavigate();
   function incrementCount() {
+    if(count>=data.stock){
+      return toast.error("product amount available exceeded")
+    }
     setCount(count + 1);
   }
   function decrementCount(value) {
@@ -28,7 +40,47 @@ function ProductDetails({ data }) {
   const handleMessageSubmit = () => {
     navigate("/inbox?conversation=435465763874");
   };
-
+  const addToCartHandler=(data)=>{
+    const itemsExist=cart.find((i)=>i._id===data._id)
+    if(itemsExist){
+      toast.error("Item already exists")
+    }
+    else{
+      const cartData={...data,Qty:count}
+      store.dispatch(addProductToCart(cartData)).then(()=>{
+        toast.success("Items added to cart successfully")
+      })
+      .catch(err=>toast.err(err))
+    }
+    
+}
+const addToWishlistHandler=(data)=>{
+  const itemsExist=wishlist.find((i)=>i._id===data._id)
+  if(itemsExist){
+    toast.error("Item already exists")
+  }
+  else{
+    try {
+      const wishlistData={...data}
+      store.dispatch(addProductToWishlist(wishlistData))
+      toast.success("Item added to wishlist successfully")
+    } catch (error) {
+      toast.error(error)
+    }
+   
+  }
+}
+const handleRemoveFromWishlist=(data)=>{
+  try {
+    const wishlistData={...data}
+    store.dispatch(removeProductToWishlist(wishlistData))
+    toast.success("items removed successfully")
+  } catch (error) {
+    toast.error(error)
+  }
+ 
+ 
+}
   const [select, setSelect] = useState(0);
 
   return (
@@ -45,7 +97,7 @@ function ProductDetails({ data }) {
               <div className="flex sm:w-full overflow-scroll">
                 {data.images.map((image,i)=><div
                   className={`${select === i ? "border" : ""} border-gray-300`}
-                  onClick={() => setSelect(i)}
+                  onClick={() => setSelect(i)} key={i}
                 >
                   <img
                     src={`${server}/${data?.images[i]}`}
@@ -88,19 +140,21 @@ function ProductDetails({ data }) {
                     +
                   </button>
                 </div>
-                {click ? (
-                  <AiFillHeart size={30} />
-                ) : (
-                  <AiOutlineHeart size={30} />
-                )}{" "}
+                {click?(
+                                        <AiFillHeart size={30}               onClick={()=>{setClick(!click);
+                                            handleRemoveFromWishlist(data)
+                                            }} color='red'/>
+                                    ):(<AiOutlineHeart size={30}               onClick={()=>{setClick(!click);
+                                      addToWishlistHandler(data)
+                                        }} />)}
               </div>
               <div className={`${styles.button} text-center flex`}>
-                <span className="text-white font-[700] ">Add to cart</span>
+                <span className="text-white font-[700] " onClick={()=>addToCartHandler(data)}>Add to cart</span>
                 <AiOutlineShoppingCart
                   color="white"
                   size={20}
                   className="ml-2"
-                />
+                 />
               </div>
               <div className="flex items-center py-4  ">
                 <div>
@@ -112,10 +166,14 @@ function ProductDetails({ data }) {
                   />
                   </Link>
                 </div>
+                
                 <div className="ml-2">
-                  <h1 className={`${styles.shop_name}`}>
+                <Link to={`/shop/${data.shop._id}`} className="w-full">
+                <h1 className={`${styles.shop_name}`}>
                     {data && data.shop.name}{" "}
                   </h1>
+                </Link>
+                  
                   <p>({data && data.rating}) Ratings</p>
                 </div>
                 <div

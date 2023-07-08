@@ -13,7 +13,8 @@ function Form({value1,value2,setValue2,setValue1,label1,label2,type1,type2}) {
           type={type1}
           value={value1}
           onChange={(e)=>setValue1(e.target.value)}
-          className='w-full h-[40px] rounded px-3'/>
+          className='w-full h-[40px] rounded px-3'
+          placeholder={`enter your ${label1}`}/>
       </div>
       
 
@@ -28,7 +29,9 @@ function Form({value1,value2,setValue2,setValue1,label1,label2,type1,type2}) {
           type={type2}
           value={value2&&value2}
           onChange={(e)=>setValue2(e.target.value)}
-          className='w-full h-[40px] rounded px-3'/>
+          className='w-full h-[40px] rounded px-3'
+          placeholder={`enter your ${label2}`}/>
+          
       </div>
       
 
