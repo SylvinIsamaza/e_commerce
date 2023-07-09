@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../../../styles/styles";
 import { AiFillLock, AiFillSave, AiOutlineSave } from 'react-icons/ai'
+import { store } from "../../../redux/store";
+import { changePassword } from "../../../redux/action/user";
 function ChangePassword() {
   const handleSubmit=(e)=>{
 e.preventDefault();
-console.log('form is being submitted')
+store.dispatch(changePassword({oldPassword:oldPassword,newPassword:newPassword,confirmPassword:confirmPassword}))
   }
+  const [oldPassword,setOldPassword]=useState("");
+  const[newPassword,setNewPassword]=useState("");
+  const [confirmPassword,setConfirmPassword]=useState("");
   return (
     <div className="w-full  overflow-y-scroll">
       <form aria-required onSubmit={handleSubmit}>
@@ -24,30 +29,36 @@ console.log('form is being submitted')
 
             <input
               type="password"
-              name="password "
-              id="password"
+              name="oldPassword "
+              id="oldPassword"
+              value={oldPassword}
+              onChange={(e)=>setOldPassword(e.target.value)}
               className="w-[90%] border border-gray-200 rounded-md 800px:mx-[5%] mx-[10px] h-[35px] px-2 "
               placeholder="enter your password"
             />
-            <label htmlFor="oldPassword" className="mx-[5%] ">
+            <label htmlFor="newPassword" className="mx-[5%] ">
               New password
             </label>
 
             <input
               type="password"
-              name="password "
-              id="password"
+              name="newPassword "
+              id="newPassword"
+              value={newPassword}
+              onChange={(e)=>setNewPassword(e.target.value)}
               className="w-[90%] border border-gray-200 rounded-md 800px:mx-[5%] mx-[10px] h-[35px] px-2 "
-              placeholder="enter your password"
+              placeholder="enter your new  password"
             />
-            <label htmlFor="oldPassword" className="mx-[5%] ">
+            <label htmlFor="confirmPassword" className="mx-[5%] ">
               Confirm your new password
             </label>
 
             <input
               type="password"
-              name="password "
-              id="password"
+              name="confirmPassword "
+              id="confirmPassword"
+              value={confirmPassword}
+              onChange={(e)=>setConfirmPassword(e.target.value)}
               className="w-[90%] border border-gray-200 rounded-md 800px:mx-[5%] mx-[10px] h-[35px] px-2 "
               placeholder="enter your password"
             />

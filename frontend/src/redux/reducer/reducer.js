@@ -112,5 +112,11 @@ export const {
   updateAddressFailure,
   updateAddressStart,
   updateAddressSuccess,
+  deleteAddressStart,
+  deleteAddressSuccess,
+  deleteAddressfailure,
+  changePasswordStart,
+  changePasswordSuccess,
+  changePasswordfailure
 } = userSlice.actions;
 export default userSlice.reducer;

@@ -9,7 +9,8 @@ export default {
     screens:{
       "600px":"600px",
       "800px":"800px",
-      "1000px":"1000px"
+      "1000px":"1000px",
+      "350px":"350px"
     }
     },
   },

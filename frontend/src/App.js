@@ -15,6 +15,7 @@ import {
   ShopActivationPage,
   ShopLoginPage,
   ShopHomepage,
+  CheckOutPage
 } from "./Routes.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -105,6 +106,9 @@ useEffect(() => {
             </ProtectedRoutes>
           }
         ></Route>
+        <Route path="/checkout" element={<CheckOutPage/>}>
+
+        </Route>
       </Routes>
       <ToastContainer
         position="top-center"
