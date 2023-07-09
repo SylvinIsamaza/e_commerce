@@ -4,6 +4,9 @@ import {
   loadUserFailure,
   loadUserStart,
   loadUserSuccess,
+  updateAddressFailure,
+  updateAddressStart,
+  updateAddressSuccess,
   updateAvatarFailure,
   updateAvatarStart,
   updateAvatarSuccess,
@@ -11,6 +14,7 @@ import {
   updateUserStart,
   updateUserSuccess,
 } from "../reducer/reducer";
+import { toast } from "react-toastify";
 
 export const loadUser = () => async (dispatch) => {
   try {
@@ -52,4 +56,19 @@ export const updateAvatar=(form)=>async(dispatch)=>{
   } catch (error) {
     dispatch(updateAvatarFailure(error.message))
   }
+}
+export const updateAddress=(form)=>async(dispatch)=>{
+try {
+  dispatch(updateAddressStart());
+  await axios.put(`${server}/api/v2/user/update_address`,form,{withCredentials:true}).then((data)=>{
+    console.log(data.data.user)
+    dispatch(updateAddressSuccess(data.data.user))
+    toast.success('address added successfullly')
+  }).catch(err=>toast.error('something went wrong'))
+  
+  
+} catch (error) {
+  dispatch(updateAddressFailure(error))
+  toast.error(error.message)
+}
 }

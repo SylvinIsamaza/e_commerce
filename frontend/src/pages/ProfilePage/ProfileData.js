@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { AiOutlineCreditCard, AiOutlineLogout, AiOutlineMessage } from "react-icons/ai";
+import { AiOutlineCreditCard, AiOutlineLock, AiOutlineLogout, AiOutlineMessage } from "react-icons/ai";
 import {HiOutlineReceiptRefund, HiOutlineShoppingBag} from "react-icons/hi";
-import { MdOutlineTrackChanges } from 'react-icons/md'
+import { MdOutlineLock, MdOutlineTrackChanges } from 'react-icons/md'
 import { RxPerson } from "react-icons/rx";
 import { TbAddressBook }from'react-icons/tb'
 
@@ -13,7 +13,7 @@ import PaymentMethod from "./profileContent/PaymentMethod";
 import Address from "./profileContent/Address";
 import Inbox from "./profileContent/Inbox";
 import Logout from "./profileContent/Logout";
-
+import ChangePassword from "./profileContent/ChangePassword.jsx";
 export const profileSIdebarItems = [
     {
         name: 'Profile',
@@ -43,6 +43,11 @@ export const profileSIdebarItems = [
             name:"Payment Method",
             icon:<AiOutlineCreditCard size={20}/>,
             element:<PaymentMethod/>
+        },
+        {
+            name:"Change password",
+            icon:<MdOutlineLock size={20}/>,
+            element:<ChangePassword/>
         },
         {
             name:"Adress",

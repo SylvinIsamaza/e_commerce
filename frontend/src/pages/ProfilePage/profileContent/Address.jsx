@@ -3,7 +3,11 @@ import styles from '../../../styles/styles'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { RxCross1 } from 'react-icons/rx'
 import {City, Country} from 'country-state-city'
+import {store} from '../../../redux/store';
+import { updateAddress } from '../../../redux/action/user'
+import { useSelector } from "react-redux";
 function Address() {
+  const {user}=useSelector((state)=>state.user)
   const [open,setOpen]=useState(false)
   const [address1,setAddress1]=useState('');
   const [address2,setAddress2]=useState("")
@@ -23,6 +27,19 @@ function Address() {
     },
 
   ]
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    
+store.dispatch(updateAddress({
+  address1,
+  address2,
+  zipCode,
+  addressType,
+  city,
+  country
+}))
+
+  }
   return (
     <>
         <div className='w-full py-3 px-5'>
@@ -39,24 +56,27 @@ function Address() {
         </div>
 
     </div>
-    <div className='w-full bg-white h-[70px] rounded-[4px] flex items-center px-3 shadow justify-between'>
-      <div className='flex items-center'>
+    {user&&user.addressess.map((address)=>
+    <div className='w-full bg-white h-[70px] rounded-[4px] flex items-center px-3 shadow justify-between my-2'>
+    <div className='flex items-center'>
 
-<h1 className='pl-5 font-[600]'>Default</h1>
-      </div>
-      <div className=' pl-8 flex items-center'>
-<h6 className='pl-6'> k255 Kigali Rwanda</h6>
+<h1 className='pl-5 font-[600]'>{address&&address.addressType}</h1>
+    </div>
+    <div className=' pl-8 flex items-center'>
+<h6 className='pl-6'> {address&&address.address1} {address.address2}</h6>
 
-      </div>
-      <div className=' pl-8 flex items-center'>
-<h6 className='pl-6'>(+250) 769-6445</h6>
+    </div>
+    <div className=' pl-8 flex items-center'>
+<h6 className='pl-6'>{user.phoneNumber}</h6>
 
-      </div>
-      <div className='min-w-[10%] flex items-center pl-8'>
-        <AiOutlineDelete size={23} className='cursor-pointer'/>
-      </div>
+    </div>
+    <div className='min-w-[10%] flex items-center pl-8'>
+      <AiOutlineDelete size={23} className='cursor-pointer'/>
+    </div>
 
 </div>
+  )}
+
 </div>
 {open?<div className='w-[100vw] bg-[#0000001b] h-screen top-0 fixed left-0 flex justify-center items-center'>
 <div className="800px:w-[35%] 600px:w-[50%] w-[90%] bg-white rounded-md shadow-sm h-[89vh] overflow-y-scroll ">
@@ -67,6 +87,7 @@ function Address() {
   Add new Address
 </h1>
 <div className="w-full px-3 font-[500] font-Poppins text-[17px]">
+  <form aria-aria-required onSubmit={handleSubmit}>
   <label htmlFor="country" className='mx-[5%]  text-[#000000ab] font-[600]'>
     Country
   </label>
@@ -106,14 +127,16 @@ function Address() {
   <label htmlFor="addressType" className='mx-[5%] text-[#000000ab] font-[600]'>
     Address type
   </label>
-  <select name="addressType" id="city" className='w-[90%] h-[35px] rounded-md bg-transparent border border-gray-200 mx-[5%] my-2'>
+  <select name="addressType" id="city" className='w-[90%] h-[35px] rounded-md bg-transparent border border-gray-200 mx-[5%] my-2'onChange={(e)=>setAddressType(e.target.value)}>
     <option value="">
       Choose address type
     </option>
     {addressTypeData.map((item)=>(<option value={item.name} key={item.name} className='pb-2 '>{item.name}
       </option>))}
   </select>
-  
+  <input type="submit" value="Add address" />
+  </form>
+ 
 </div>
 </div>
 
