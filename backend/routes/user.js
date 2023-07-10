@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const { createUser, login, getUser } = require("../controller/user");
+const { createUser, login, getUser, updateUser, updateAvatar, updateAddress, changePassword, deleteAddress } = require("../controller/user");
 const { upload } = require("../multer");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
@@ -21,8 +21,8 @@ router.post(
   "/activation",
   catchAsyncError((req, res, next) => {
     try {
-      const activationToken = req.body;
-      // console.log(activationToken)
+      const {activationToken} = req.body;
+      console.log(activationToken)
 
       try {
         const user = jwt.verify(activationToken, process.env.JWT_TOKEN_SECRET);
@@ -61,4 +61,9 @@ router.get(
     }
   })
 );
+router.put("/update_user",isAuthenticated,updateUser);
+router.put("/update_address",isAuthenticated,updateAddress);
+router.put("/update_avatar",upload.single("file"),updateAvatar)
+router.put("/change_password",isAuthenticated,changePassword)
+router.delete("/delete_address/:id",isAuthenticated,deleteAddress)
 module.exports = router;
