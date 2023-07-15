@@ -35,7 +35,7 @@ async function shopCreation(req, res, next) {
     const hashedPassword = await bcrypt
       .hash(password, 10)
       .then(async (hashedPassword) => {
-        const seller = new shop({
+        const seller = new Shop({
           email,
           password: hashedPassword,
           name,
@@ -47,6 +47,7 @@ async function shopCreation(req, res, next) {
         seller.save();
         const activationToken = activateToken(seller);
         const activationUrl = `http://localhost:3000/shop/activation/${activationToken}`;
+        console.log(activationUrl)
         await sendMails({
           email: seller.email,
           subject: "Activate your account",

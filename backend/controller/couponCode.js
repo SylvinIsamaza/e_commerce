@@ -4,6 +4,8 @@ const Shop = require("../models/shop");
 const CouponCode = require("../models/couponCode");
 const errorHandler = require("../utils/errrorHandler");
 const fs = require("fs");
+const couponCode = require("../models/couponCode");
+const { Console } = require("console");
 const createCouponCode = catchAsyncError(async (req, res, next) => {
   try {
     const couponCodeName = req.body.name;
@@ -40,4 +42,24 @@ const getAllCouponCode = catchAsyncError(async (req, res, next) => {
     return next(new errorHandler(error, 400));
   }
 });
-module.exports = { createCouponCode, getAllCouponCode };
+const verifyCouponCode=catchAsyncError(async(req,res,next)=>{
+  try {
+    const {shopId,couponCode}=req.body;
+  console.log(req.body)
+const couponCodeExist=await CouponCode.findOne({name:couponCode})
+
+if(couponCodeExist){
+return res.status(200).json({
+  success:true,
+  couponCodeExist
+})
+}
+else{
+  return next(new errorHandler("Invalid coupon code",400))
+}
+  } catch (error) {
+    return next(new errorHandler(error,500))
+  }
+
+})
+module.exports = { createCouponCode, getAllCouponCode,verifyCouponCode };

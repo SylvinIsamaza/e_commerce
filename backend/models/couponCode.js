@@ -19,6 +19,11 @@ const couponCodeSchema = new mongoose.Schema(
     selectedProduct: {
       type: String,
     },
+    
+      discount:{
+type:Number,
+      },
+    
   },
   { timestamps: true }
 );

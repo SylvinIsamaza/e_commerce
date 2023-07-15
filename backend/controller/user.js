@@ -146,10 +146,10 @@ console.log(phoneNumber)
 });
 const updateAvatar = catchAsyncError(async (req, res, next) => {
   const id = req.body.id;
-  console.log(id)
-  console.log(req.file)
+  
+
   const fileName = req.file.filename;
-  console.log(fileName)
+  
   const filePath = path.join(fileName);
 
   try {
