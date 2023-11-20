@@ -15,7 +15,7 @@ const app = express();
 connectToDb();
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["https://e-commerce-nine-peach.vercel.app"],
     credentials: true,
   })
 );
