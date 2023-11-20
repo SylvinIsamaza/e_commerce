@@ -1,2 +1,2 @@
-export const server='http://localhost:5000'
-export const backendUrl='http://localhost:5000/'
+export const server='https://e-commerce-backend-lwl4.onrender.com'
+export const backendUrl='https://e-commerce-backend-lwl4.onrender.com/'
